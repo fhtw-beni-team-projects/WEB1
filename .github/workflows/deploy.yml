@@ -3,11 +3,15 @@ on:
   push:
     branches:
       - release
+  workflow_dispatch:
+  
 
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
       - name: Create SSH key
         run: |
@@ -15,4 +19,4 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
       - name: Deploy with rsync
-        run: rsync -avzn ./dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/fhtw/
+        run: rsync -avzn ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/fhtw/
