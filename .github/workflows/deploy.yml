@@ -19,4 +19,4 @@ jobs:
           ssh-host: ${{ secrets.VPS_HOST }}
         
       - name: Deploy with rsync
-        run: rsync -avzn ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/fhtw/
+        run: rsync -avz ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/fhtw/
