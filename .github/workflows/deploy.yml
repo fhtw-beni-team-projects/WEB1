@@ -20,4 +20,7 @@ jobs:
           ssh-host: ${{ secrets.VPS_HOST }}
         
       - name: Deploy with rsync
-        run: rsync -avz * ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/fhtw/
+        run: rsync -az * ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/fhtw/
+        
+      - name: Restart apache
+        run: ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} /usr/sbin/apache2ctl restart
