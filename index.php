@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>placeholder</title>
-    <?php include 'head.php'?>
+    <?php require 'head.php'?>
   </head>
   <body>
     <?php include 'navbar.php'?>
