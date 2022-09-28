@@ -1,4 +1,4 @@
-<div id="Impressum">
+<div class="post main" id="Impressum">
   <h3>Impressum</h3>
     <p>Hotel xy</p>
     <p>Inhaber </p>

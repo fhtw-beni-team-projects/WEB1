@@ -1,8 +1,155 @@
-body {
-  margin: 40px auto;
-  max-width: 650px;
-  line-height: 1.6;
-  font-size: 18px;
-  color: #444;
-  padding: 0 10px;
+
+
+/* color variables:   line 13 to 29    */
+/* base elements:     line 31 to 70   */
+/* navbar:            line 72 to 107  */
+
+
+
+
+
+
+
+:root {
+  --bg-back: #bdc3c7;
+  --bg-main: #ecf0f1;
+  --bg-main-lite: ;
+  --bg-inv: #34495e;
+  --bg-inv-lite: #2c3e50;
+  --color-main: #2c3e50;
+  --color-main-lite: #7f8c8d;
+  --color-inv: #ecf0f1;
+  --color-inv-lite: #bdc3c7;
+  --color-link: #3498db;
+  --color-link-lite: #2980b9;
+  --red: #e74c3c;
+  --red-lite: #c0392b;
+  --yellow: #f1c40f;
+  --yellow-lite: #f39c12;
 }
+
+title {
+  display: none;
+}
+
+body {
+  background: var(--bg-back);
+  color: var(--color-main);
+  font-family: "montserrat", sans-serif;
+  margin: 0px;
+}
+
+button {
+  color: inherit;
+  background: inherit;
+  border: inherit;
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+p, blockquote, pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+img {
+  max-width: 100%
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top: 0;
+}
+
+.navBox {
+  position: sticky;
+  top: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 25px;
+  padding-right: 25px;
+  overflow: hidden;
+  background: var(--bg-inv);
+  color: var(--color-inv);
+  z-index: 2;
+}
+
+.navPoint {
+  float: left;
+}
+
+.navLink {
+  padding: 17px;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  margin: 3px;
+  transition: 0.5s;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--color-inv-lite);
+  background: var(--bg-inv-lite);
+  border-radius: 5px;
+}
+
+.navText {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
+
+.post {
+  background: var(--bg-main);
+  padding: 25px;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.post:hover {
+  box-shadow: 1px 1px 3px;
+}
+
+.post .link {
+  color: var(--color-link);
+}
+
+.post .link:hover {
+  color: var(--color-link-lite);
+}
+
+.main {}
+
+.sidebar {}
+
+.grid {
+  display: grid;
+  grid-template-columns: 75% auto;
+  grid-column-gap: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.gridsingle {
+  grid-template-columns: auto;
+}
+
+.gridtriple {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.feed {}
