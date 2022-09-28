@@ -17,6 +17,15 @@
  		</a>
  	</li>
 
+
+
+ 	<li class="navPoint right"><button class="navLink" onclick="openForm('signup')"><i class="navIcon fas fa-sign-in-alt"></i><p class="navText">&nbsp;Signup</p></button></li>
+
+
+
+ 	<div class="darkener" id="darkener" onclick="closeForm()"></div>
+
+
 <!--
 
 	// preperation for later
@@ -43,6 +52,6 @@
 </ul>
 
 <?php
-	include '../templates/login.php';
-	include '../templates/logout.php';
+	include 'login.php';
+#	include 'logout.php';
 ?>
