@@ -1,9 +1,9 @@
 
 
-/* color variables:   line 13 to 29    */
+/* color variables:   line 13 to 29   */
 /* base elements:     line 31 to 70   */
-/* navbar:            line 72 to 107  */
-
+/* navbar:            line 72 to 109  */
+/* content grid:      line*/
 
 
 
@@ -47,13 +47,12 @@ button {
 }
 
 a {
-  color: inherit;
+  color: var(--color-link);
   text-decoration: none;
 }
 
-a:visited {
-  color: inherit;
-  text-decoration: none;
+a:hover {
+  color: var(--color-link-lite);
 }
 
 p, blockquote, pre {
@@ -75,6 +74,8 @@ h1, h2, h3, h4, h5 {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  padding-left: 5%;
+  padding-right: 5%;
   overflow: hidden;
   background: var(--bg-inv);
   color: var(--color-inv);
@@ -104,6 +105,10 @@ h1, h2, h3, h4, h5 {
 
 .navText {
   display: inline;
+}
+
+.right {
+  float: right;
 }
 
 .hidden {

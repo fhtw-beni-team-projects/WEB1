@@ -1,3 +1,5 @@
+<div class="darkener" id="darkener" onclick="closeForm()"></div>
+
 <ul class="navBox" id="navbar" aria-label="Navigation bar">
 	<li class="navPoint">
 		<a class="navLink" href="/index.php">
@@ -20,10 +22,6 @@
 
 
  	<li class="navPoint right"><button class="navLink" onclick="openForm('signup')"><i class="navIcon fas fa-sign-in-alt"></i><p class="navText">&nbsp;Signup</p></button></li>
-
-
-
- 	<div class="darkener" id="darkener" onclick="closeForm()"></div>
 
 
 <!--
