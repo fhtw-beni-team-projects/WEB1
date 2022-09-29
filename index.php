@@ -5,6 +5,8 @@
     <?php require 'i/head.php'?>
   </head>
   <body>
+    <?php include 'i/titlecard.php'?>
+
     <?php include 'i/navbar.php'?>
     
 
