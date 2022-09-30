@@ -5,3 +5,8 @@ function openForm(form) {
 function closeForm() {
   $(".popup, .darkener").hide();
 }
+
+function changeForm(form) {
+  $(".popup").hide();  
+  $("#" + form).show();
+}
