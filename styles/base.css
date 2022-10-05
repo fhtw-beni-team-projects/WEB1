@@ -276,6 +276,9 @@ h1, h2, h3, h4, h5 {
 
 .formcontent.grid {
   column-gap: 0;
+}
+
+.formcontent.grid.equal {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
