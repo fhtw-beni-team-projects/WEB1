@@ -229,7 +229,7 @@ h1, h2, h3, h4, h5 {
   margin-left: 10px;
   display: inline-block;
   border-radius: 5px;
-  border: 1px solid #bdc3c7;
+  border: 1px solid var(--bg-main);
   background: #fff;
   font: inherit;
   grid-column: 2 / 4;
@@ -266,7 +266,7 @@ h1, h2, h3, h4, h5 {
 
 .formcontent.grid {
   column-gap: 0;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* TODO: fix this */
 }
 
 .grid > .formleft {
