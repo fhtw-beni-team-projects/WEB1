@@ -53,8 +53,6 @@
 
     <label class="descr formleft" for="pwd2">Wiederhole&nbsp;Passwort</label><input class="popup_input formright forminput" type="password" name="pwd2" placeholder="Wiederhole dein Passwort" />
 
-  </div>
-  <div class="formcontent grid equal">
 
     <!-- TODO: seperate sign up / login page for js disabled browsers-->
     <p class="formtext formfull" id="login-prompt">Already&nbsp;have&nbsp;an&nbsp;account? <a target="_blank" onclick="changeForm('login');">Log&nbsp;in</a>&nbsp;instead!</p>
