@@ -21,7 +21,7 @@
 
 
 
- 	<li class="navPoint right"><button class="navLink" onclick="openForm('signup')"><i class="navIcon fas fa-sign-in-alt"></i><p class="navText">&nbsp;Signup</p></button></li>
+ 	<li class="navPoint right"><button class="navLink" onclick="openForm('login')"><i class="navIcon fas fa-sign-in-alt"></i><p class="navText">&nbsp;Login</p></button></li>
 
 
 <!--
