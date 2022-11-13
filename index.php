@@ -17,7 +17,7 @@
     
         <?php include 'i/fileLoader/fileLoader.php'?>
         <?php include 'i/impressum.php'?>
-    
+        <?php include 'i/help.php'?>
 
       </div>
 
