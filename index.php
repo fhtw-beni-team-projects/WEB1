@@ -1,3 +1,4 @@
+<?php require 'i/session_start.php'?>
 <!DOCTYPE html>
 <html>
   <head>
