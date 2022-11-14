@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/styles/base.css">
-
 <div class="post main" id="Help">
     <h3 class="faq-heading">FAQ'S</h3>
     <section class="faq-container">
