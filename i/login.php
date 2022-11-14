@@ -4,22 +4,21 @@
 
 // TODO: method for login, signup, settings
 
+$conn = new mysqli_init();
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+
+
 if (isset($_GET['login'])) {
-    $name = $_POST['name']; // TODO: fix
+    $username = $_POST['username']; // TODO: fix
     $pwd = $_POST['pwd'];
     $url = $_POST['url']; // source url
     // TODO: verify if url is needed
     // => login without reloading the page
 
 
-// TODO: change to MySQLi
-    
-    /* pdo, previously used
-
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE name = :name");
-    $result = $stmt->execute(array('name' => $name));
-    $pwd_hash = $stmt->fetch();
-    */
 
     $sql = "SELECT pwd_hash FROM users WHERE username = ?";
     $stmt = $conn->prepare($sql);
@@ -29,7 +28,6 @@ if (isset($_GET['login'])) {
     $user = $stmt->get_result()->fetch_assoc();
 
     $stmt->close();
-    $conn->close();
 
     if ($pwd_hash !== false && password_verify($pwd, $user['password'])) {
         $_SESSION['userid'] = $user['id'];
@@ -44,6 +42,84 @@ if (isset($errorMessage)) {
     <p class="feedback error"><?=$errorMessage?></p>
     <?php
 }
+
+
+
+if (isset($_GET['register'])) {
+    $error = false;
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $pwd = $_POST['pwd'];
+    $gender = $_POST['gender'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $url = $_POST['url'];
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorMessage = "Please enter a vaild e-mail adress<br>";
+        $error = true;
+    }
+
+    // TODO: pwd requirements
+    if (strlen($pwd) == 0) {
+        $errorMessage = "Please enter a password<br>";
+        $error = true;
+    }
+
+    // TODO: verify all fields
+
+    if (!$error) {
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $success = $stmt->get_result();
+
+        if ($success) {
+            $errorMessage = "Username already taken<br>";
+            $error = true;
+        }
+    }
+    if (!$error) {
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $success = $stmt->get_result();
+        
+        if ($success) {
+            $errorMessage = "E-mail already in use<br>";
+            $error = true;
+        }
+    }
+    if (!$error) {
+        $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
+
+
+        // TODO: seperate table for contact details
+        // users table just for login details
+        $sql = "INSERT INTO users (username, email, pwd) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssss", $username, $email, $pwd_hash);
+        $stmt->execute();
+        $success = $stmt->get_result();
+
+        if ($success) {
+            header("Location: $url");
+            die("Success!");
+        } else {
+            echo 'Couldn\'t send data<br>';
+        }
+
+        $stmt->close();
+    }
+}
+
+if (isset($errorMessage)) {
+    echo "<p class=\"feedback error\">".$errorMessage."</p>";
+}
+
+
 
 $url = $_SERVER['REQUEST_URI'];
 ?>
@@ -117,3 +193,7 @@ $url = $_SERVER['REQUEST_URI'];
 
     </div>
 </form>
+
+<?php 
+$conn->close();
+?>
