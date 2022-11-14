@@ -1,6 +1,6 @@
 ### DB access file
 
-To access the database, `classes/mysqlo_init.php` reads the file `db_settings.ini` with the following structure:
+To access the database, `classes/mysqli_init.php` reads the file `db_settings.ini` with the following structure:
 ```
 [database]
 driver = mysql
