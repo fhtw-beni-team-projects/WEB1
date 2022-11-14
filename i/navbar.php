@@ -39,7 +39,6 @@
     <?php
 }
 	?>
-	<div class="darkener" id="darkener" onclick="closeForm()"></div>
 
 </ul>
 
