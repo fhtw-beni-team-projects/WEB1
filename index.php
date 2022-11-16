@@ -9,7 +9,7 @@
     <?php include 'i/navbar.php'?>
     
 
-    <div class="grid" id="mainpage">
+    <div class="grid maingrid" id="mainpage">
       <div class="feed" id="infoposts">
     
 
