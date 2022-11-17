@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 
 
 
-if (isset($_GET['login'])) {
+/*if (isset($_GET['login'])) {
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -30,7 +30,7 @@ if (isset($_GET['login'])) {
 
     if ($user && password_verify($pwd, $user['pwd_hash'])) {
         $_SESSION['id'] = $user['id'];
-        #header("Location: ".$url);
+        header("Location: $url");
         $statusMessage = "Login successful";
     } else {
         $statusMessage = "Username and password don't match<br>";
@@ -39,11 +39,12 @@ if (isset($_GET['login'])) {
     if($_POST['email'] == "asd@asd.at" && $_POST['pwd'] == "asd") {
         $_SESSION['userid'] = 123;
     }
-}
+}*/
 
 
 
 if (isset($_GET['signup'])) {
+    /*
     $error = false;
 
     $username = $_POST['username'];
@@ -67,7 +68,7 @@ if (isset($_GET['signup'])) {
 
     // TODO: verify all fields
 
-    /*if (!$error) {
+    if (!$error) {
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -90,7 +91,7 @@ if (isset($_GET['signup'])) {
             $statusMessage = "E-mail already in use<br>";
             $error = true;
         }
-    }*/
+    }
 
     if (!$error) {
         $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
@@ -111,17 +112,17 @@ if (isset($_GET['signup'])) {
             $stmt->close();
 
             $_SESSION['id'] = $user['id'];
-            #header("Location: ".$url);
+            header("Location: $url");
             $statusMessage = "Success! Affected rows: " . $stmt->affected_rows;
         } else {
             $statusMessage = "Couldn't send data<br>";
         }
 
         $stmt->close();
-    }
+    }*/
 }
 
-
+// TODO: transfer to class user.php
 
 if (isset($statusMessage)) {
     ?>
@@ -157,7 +158,7 @@ $url = $_SERVER['REQUEST_URI'];
         <!-- TODO: verify login without reloading page -->
 
         <!-- TEMP: redirecting user back to origin page after logging in -->
-        <input type="hidden" name="url" value=".$url." />
+        <input type="hidden" name="url" value="?=$url?" />
 
 
     </div>
@@ -199,7 +200,7 @@ $url = $_SERVER['REQUEST_URI'];
         <!-- TODO: verify sign up without reloading page -->
 
         <!-- TEMP: redirecting user back to origin page after signing up -->
-        <input type="hidden" name="url" value=".$url." />
+        <input type="hidden" name="url" value="<?=$url?>" />
 
 
     </div>

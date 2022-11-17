@@ -14,10 +14,15 @@ class user
 
     public function __construct($id)
     {
+        if (isset($_GET['login'])) {
+            $this->login();
+        } elseif (isset($_GET['login'])) {
+            $this->signup();
+        }
+
         if (!$id) {
 
-            # search for an ID to use if non is given
-
+            # try already stored id
             if (isset($_GET['userid'])) {
                 $id = $_GET['userid'];
             } elseif (isset($_SESSION['userid'])) {
@@ -28,49 +33,35 @@ class user
         }
 
         # load user data from db
+        if($id) {
+            $conn = new mysqli_init();
 
-        // TODO: change to MySQLi
+            // TEMP: error handling as is
+            // TODO: proper error handling
 
-        $conn = new mysqli_init();
+            if ($conn->connect_error) {
+                die("Connection failed: ".$conn->connect_error);
+            }
 
-        // TEMP: error handling as is
-        // TODO: proper error handling
+            # prepared statement
 
-        if ($conn->connect_error) {
-            die("Connection failed: ".$conn->connect_error);
+            $sql = "SELECT * FROM users WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+
+            $user = $stmt->get_result()->fetch_assoc();
+
+            $stmt->close();
+            $conn->close();
+
+            $this->id = $id;
+            $this->user = $user;
+            $this->name = $user['username'];
         }
-
-        # prepared statement
-
-        $sql = "SELECT * FROM users WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-
-        $user = $stmt->get_result()->fetch_assoc();
-
-        $stmt->close();
-        $conn->close();
-
-        $this->id = $id;
-        $this->user = $user;
-        $this->name = $user['username'];
-
-        /* pdo, previously used
-
-        $pdo = new MyPDO();
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
-        $stmt->execute(array('id' => $id));
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $this->id = $id;
-        $this->user = $user;
-        $this->name = $user['username'];
-
-        */
     }
 
-    public function displayUser() // TODO: remove
+    public function displayUser() // TODO: remove/rework
     {
 
         # convert timestamp to usable string
@@ -87,5 +78,117 @@ class user
             echo "<br /><p>".$this->user['about']."</p>";
         }
         echo "</div>";
+    }
+
+    public function login()
+    {
+        # functioned assumed to only be called with correct POST requests
+
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+
+        $email = $_POST['email'];
+        $pwd = $_POST['pwd'];
+        $url = $_POST['url']; # source url, redundant for asynchronous login
+
+        $stmt->execute();
+
+        $user = $stmt->get_result()->fetch_assoc();
+
+        $stmt->close();
+
+        if ($user && password_verify($pwd, $user['pwd_hash'])) {
+            $_SESSION['userid'] = $user['id'];
+            $statusMessage = "Login successful";
+        } else {
+            $statusMessage = "Username and password don't match<br>";
+        }
+
+        $conn->close();
+    }
+
+    public function signup()
+    {
+        $error = false;
+
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $pwd = $_POST['pwd'];
+        $gender = $_POST['gender'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $url = $_POST['url'];
+    
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $statusMessage = "Please enter a vaild e-mail adress<br>";
+            $error = true;
+        }
+    
+        // TODO: pwd requirements
+        if (!strlen($pwd)) {
+            $statusMessage = "Please enter a password<br>";
+            $error = true;
+        }
+    
+        // TODO: verify all fields
+    
+        /*if (!$error) {
+            $sql = "SELECT * FROM users WHERE username = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $success = $stmt->get_result();
+    
+            if ($success) {
+                $statusMessage = "Username already taken<br>";
+                $error = true;
+            }
+        }
+        if (!$error) {
+            $sql = "SELECT * FROM users WHERE email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $success = $stmt->get_result();
+            
+            if ($success) {
+                $statusMessage = "E-mail already in use<br>";
+                $error = true;
+            }
+        }*/
+    
+        if (!$error) {
+            $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
+    
+    
+            // TODO: seperate table for contact details
+            // users table just for login details
+            $sql = "INSERT INTO users (username, email, pwd_hash) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $username, $email, $pwd_hash);
+    
+            if ($stmt->execute()) {
+                $sql = "SELECT * FROM users WHERE email = ?";
+                $stmt2 = $conn->prepare($sql);
+                $stmt2->bind_param("s", $email);
+                $stmt2->execute();
+                $user = $stmt2->get_result()->fetch_assoc();
+                $stmt->close();
+    
+                $_SESSION['userid'] = $user['id'];
+                header("Location: $url");
+                $statusMessage = "Success! Affected rows: " . $stmt->affected_rows;
+            } else {
+                $statusMessage = "Couldn't send data<br>";
+            }
+    
+            $stmt->close();
+        }
     }
 };
