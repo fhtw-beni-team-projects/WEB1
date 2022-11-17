@@ -12,30 +12,29 @@ if ($conn->connect_error) {
 
 
 if (isset($_GET['login'])) {
-    /*$username = $_POST['username']; // TODO: fix
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+
+    $email = $_POST['email'];
     $pwd = $_POST['pwd'];
     $url = $_POST['url']; // source url
     // TODO: verify if url is needed
     // => login without reloading the page
 
-
-
-    $sql = "SELECT pwd_hash FROM users WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $name);
     $stmt->execute();
 
     $user = $stmt->get_result()->fetch_assoc();
 
     $stmt->close();
 
-    if ($pwd_hash !== false && password_verify($pwd, $user['password'])) {
-        $_SESSION['userid'] = $user['id'];
-        header("Location: $url");
-        die("Login successful");
+    if ($user && password_verify($pwd, $user['pwd_hash'])) {
+        $_SESSION['id'] = $user['id'];
+        #header("Location: ".$url);
+        $statusMessage = "Login successful";
     } else {
-        $errorMessage = "Username and password don't match<br>";
-    }*/
+        $statusMessage = "Username and password don't match<br>";
+    }
 
     if($_POST['email'] == "asd@asd.at" && $_POST['pwd'] == "asd") {
         $_SESSION['userid'] = 123;
@@ -44,8 +43,9 @@ if (isset($_GET['login'])) {
 
 
 
-if (isset($_GET['register'])) {
+if (isset($_GET['signup'])) {
     $error = false;
+
     $username = $_POST['username'];
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
@@ -55,19 +55,19 @@ if (isset($_GET['register'])) {
     $url = $_POST['url'];
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errorMessage = "Please enter a vaild e-mail adress<br>";
+        $statusMessage = "Please enter a vaild e-mail adress<br>";
         $error = true;
     }
 
     // TODO: pwd requirements
-    if (strlen($pwd) == 0) {
-        $errorMessage = "Please enter a password<br>";
+    if (!strlen($pwd)) {
+        $statusMessage = "Please enter a password<br>";
         $error = true;
     }
 
     // TODO: verify all fields
 
-    if (!$error) {
+    /*if (!$error) {
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -75,7 +75,7 @@ if (isset($_GET['register'])) {
         $success = $stmt->get_result();
 
         if ($success) {
-            $errorMessage = "Username already taken<br>";
+            $statusMessage = "Username already taken<br>";
             $error = true;
         }
     }
@@ -87,37 +87,46 @@ if (isset($_GET['register'])) {
         $success = $stmt->get_result();
         
         if ($success) {
-            $errorMessage = "E-mail already in use<br>";
+            $statusMessage = "E-mail already in use<br>";
             $error = true;
         }
-    }
+    }*/
+
     if (!$error) {
         $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
 
 
         // TODO: seperate table for contact details
         // users table just for login details
-        $sql = "INSERT INTO users (username, email, pwd) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (username, email, pwd_hash) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", $username, $email, $pwd_hash);
-        $stmt->execute();
-        $success = $stmt->get_result();
+        $stmt->bind_param("sss", $username, $email, $pwd_hash);
 
-        if ($success) {
-            header("Location: $url");
-            die("Success!");
+        if ($stmt->execute()) {
+            $sql = "SELECT * FROM users WHERE email = ?";
+            $stmt2 = $conn->prepare($sql);
+            $stmt2->bind_param("s", $email);
+            $stmt2->execute();
+            $user = $stmt2->get_result()->fetch_assoc();
+            $stmt->close();
+
+            $_SESSION['id'] = $user['id'];
+            #header("Location: ".$url);
+            $statusMessage = "Success! Affected rows: " . $stmt->affected_rows;
         } else {
-            $errorMessage = "Couldn't send data<br>";
+            $statusMessage = "Couldn't send data<br>";
         }
 
         $stmt->close();
     }
 }
 
-if (isset($errorMessage)) {
-?>
-    <p class="feedback error"><?=$errorMessage?></p>
-<?php
+
+
+if (isset($statusMessage)) {
+    ?>
+    <p class="feedback error"><?=$statusMessage?></p>
+    <?php
 }
 
 
@@ -131,11 +140,9 @@ $url = $_SERVER['REQUEST_URI'];
         <!-- TODO: email or username as login -->
         <!-- NOTE: just email is safer -->
 
-        <label class="descr formleft" for="email">E-Mail</label><input class="popup_input formright forminput" type="email" name="email" />
+        <label class="descr formleft" for="email">E-Mail</label><input class="popup_input formright forminput" type="email" name="email" placeholder="email@example.at" />
 
         <label class="descr formleft" for="pwd">Passwort</label><input class="popup_input formright forminput" type="password" name="pwd" placeholder="Gib dein Passwort ein" />
-
-        <!-- TODO: make second password a dummy -->
 
 
 
@@ -173,7 +180,6 @@ $url = $_SERVER['REQUEST_URI'];
 
         <label class="descr formleft" for="username">Nutzername</label><input class="popup_input formright forminput" type="text" name="username" />
 
-        <!-- TODO: fix overflow of text / width of parent element -->
         <label class="descr formleft" for="pwd">Passwort</label><input class="popup_input formright forminput" type="password" name="pwd" placeholder="Gib ein Passwort ein" />
 
         <!-- TODO: make second password a dummy -->
