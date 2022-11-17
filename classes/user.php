@@ -31,7 +31,7 @@ class user
 
         // TODO: change to MySQLi
 
-        $conn = new mysqli($servername, $username, $password);
+        $conn = new mysqli_init();
 
         // TEMP: error handling as is
         // TODO: proper error handling

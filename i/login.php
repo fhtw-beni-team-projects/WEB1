@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 
 if (isset($_GET['login'])) {
-    $username = $_POST['username']; // TODO: fix
+    /*$username = $_POST['username']; // TODO: fix
     $pwd = $_POST['pwd'];
     $url = $_POST['url']; // source url
     // TODO: verify if url is needed
@@ -35,12 +35,11 @@ if (isset($_GET['login'])) {
         die("Login successful");
     } else {
         $errorMessage = "Username and password don't match<br>";
+    }*/
+
+    if($_POST['email'] == "asd@asd.at" && $_POST['pwd'] == "asd") {
+        $_SESSION['userid'] = 123;
     }
-}
-if (isset($errorMessage)) {
-    ?>
-    <p class="feedback error"><?=$errorMessage?></p>
-    <?php
 }
 
 
@@ -108,7 +107,7 @@ if (isset($_GET['register'])) {
             header("Location: $url");
             die("Success!");
         } else {
-            echo 'Couldn\'t send data<br>';
+            $errorMessage = "Couldn't send data<br>";
         }
 
         $stmt->close();
@@ -116,7 +115,9 @@ if (isset($_GET['register'])) {
 }
 
 if (isset($errorMessage)) {
-    echo "<p class=\"feedback error\">".$errorMessage."</p>";
+?>
+    <p class="feedback error"><?=$errorMessage?></p>
+<?php
 }
 
 
