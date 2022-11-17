@@ -165,25 +165,25 @@ $url = $_SERVER['REQUEST_URI'];
             <option value="divers">Divers</option>
         </select>
 
-        <label class="descr formleft" for="firstname">Vorname</label><input class="popup_input formright forminput formtextelement" type="text" name="firstname" />
-        <label class="descr formleft" for="lastname">Nachname</label><input class="popup_input formright forminput formtextelement" type="text" name="lastname" />
+        <label class="descr formleft" for="firstname">Vorname</label><input class="popup_input formright forminput" type="text" name="firstname" />
+        <label class="descr formleft" for="lastname">Nachname</label><input class="popup_input formright forminput" type="text" name="lastname" />
 
-        <label class="descr formleft" for="email">E-Mail</label><input class="popup_input formright forminput formtextelement" type="email" name="email" />
+        <label class="descr formleft" for="email">E-Mail</label><input class="popup_input formright forminput" type="email" name="email" />
 
-        <label class="descr formleft" for="username">Nutzername</label><input class="popup_input formright forminput formtextelement" type="text" name="username" />
+        <label class="descr formleft" for="username">Nutzername</label><input class="popup_input formright forminput" type="text" name="username" />
 
         <!-- TODO: fix overflow of text / width of parent element -->
-        <label class="descr formleft" for="pwd">Passwort</label><input class="popup_input formright forminput formtextelement" type="password" name="pwd" placeholder="Gib ein Passwort ein" />
+        <label class="descr formleft" for="pwd">Passwort</label><input class="popup_input formright forminput" type="password" name="pwd" placeholder="Gib ein Passwort ein" />
 
         <!-- TODO: make second password a dummy -->
 
-        <label class="descr formleft" for="pwd2">Wiederhole&nbsp;Passwort</label><input class="popup_input formright forminput formtextelement" type="password" name="pwd2" placeholder="Wiederhole dein Passwort" />
+        <label class="descr formleft" for="pwd2">Wiederhole&nbsp;Passwort</label><input class="popup_input formright forminput" type="password" name="pwd2" placeholder="Wiederhole dein Passwort" />
 
 
         <!-- TODO: seperate sign up / login page for js disabled browsers-->
     </div>
     <div class="formcontent grid equal">
-        <p class="formtextfull formfull formtextelement" id="login-prompt">Already&nbsp;have&nbsp;an&nbsp;account? <a target="_blank" onclick="changeForm('login');">Log&nbsp;in</a>&nbsp;instead!</p>
+        <p class="formtext formfull formtextelement" id="login-prompt">Already&nbsp;have&nbsp;an&nbsp;account? <a target="_blank" onclick="changeForm('login');">Log&nbsp;in</a>&nbsp;instead!</p>
 
 
         <button type="button" class="btn formleft" onclick="closeForm('signup')"><i class="far fa-window-close"></i>&nbsp;Cancel</button>
