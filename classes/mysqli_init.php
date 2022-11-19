@@ -3,7 +3,8 @@ class mysqli_init extends mysqli
 {
     public function __construct($file = "db_settings.ini")
     {
-        if (!$settings = parse_ini_file($file, true)) {
+        $settings = parse_ini_file($file, true);
+        if (!$settings) {
             throw new exception('Unable to open ' . $file . '.');
         }
 
