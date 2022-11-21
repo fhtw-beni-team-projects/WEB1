@@ -115,6 +115,11 @@ class user
 
     public function signup()
     {
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
         $error = false;
 
         $username = $_POST['username'];
@@ -179,7 +184,6 @@ class user
                 $stmt2->bind_param("s", $email);
                 $stmt2->execute();
                 $user = $stmt2->get_result()->fetch_assoc();
-                $stmt->close();
     
                 $_SESSION['userid'] = $user['id'];
                 header("Location: $url");
@@ -190,5 +194,7 @@ class user
     
             $stmt->close();
         }
+
+        $conn->close();
     }
 };
