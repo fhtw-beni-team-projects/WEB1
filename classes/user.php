@@ -16,7 +16,7 @@ class user
     {
         if (isset($_GET['login'])) {
             $this->login();
-        } elseif (isset($_GET['login'])) {
+        } elseif (isset($_GET['signup'])) {
             $this->signup();
         }
 
