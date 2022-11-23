@@ -5,7 +5,7 @@ To access the database, `classes/mysqli_init.php` reads the file `db_settings.in
 [database]
 driver = mysql
 host = localhost
-port = 3307
+port = 3306
 schema = schema
 username = username
 password = password
