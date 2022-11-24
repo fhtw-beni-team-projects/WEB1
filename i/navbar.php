@@ -14,9 +14,9 @@
  		</a>
  	</li>
  	<li class="navPoint">
- 		<a class="navLink" href="/wip.php">
- 			<i class="fas fa-code"></i>
- 			<p class="navText">&nbsp;WIP</p>
+ 		<a class="navLink" href="/faq.php">
+ 			<i class="fas fa-question"></i>
+ 			<p class="navText">&nbsp;FAQ</p>
  		</a>
  	</li>
 

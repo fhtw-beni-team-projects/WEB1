@@ -16,8 +16,6 @@
         <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
     
         <?php include 'i/fileLoader/fileLoader.php'?>
-        <?php include 'i/impressum.php'?>
-        <?php include 'i/help.php'?>
 
       </div>
 
