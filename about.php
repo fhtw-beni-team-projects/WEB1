@@ -12,6 +12,7 @@
     <div class="grid maingrid" id="mainpage">
       <div class="feed" id="infoposts">
         <?php include 'i/impressum.php'?>
+        <?php include 'i/people.php'?>
 
       </div>
     </div>

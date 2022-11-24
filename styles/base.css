@@ -295,7 +295,7 @@ h1, h2, h3, h4, h5 {
   grid-template-columns: 0fr 0fr auto;
 }
 
-.formcontent.grid.equal {
+.grid.equal {
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }
 
@@ -384,3 +384,10 @@ h1, h2, h3, h4, h5 {
   /* Unicode character for "minus" sign (-) */
 }
 
+.gridleft {
+  grid-column: 1/2
+}
+
+.gridright {
+  grid-column: 2/3;
+}
