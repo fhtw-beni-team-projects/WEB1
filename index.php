@@ -13,10 +13,24 @@
       <div class="feed" id="infoposts">
     
 
+
         <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
     
         <?php include 'i/fileLoader/fileLoader.php'?>
 
+        <?php
+        $files = glob("img/*.jpg");
+        foreach($files as $file) {
+          ?>
+
+          <div class="post main">
+            <img src="<?=$file?>"/>
+          </div>
+
+          <?php
+        }
+
+        ?>
       </div>
 
       <div class="feed" id="sidebar">
