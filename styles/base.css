@@ -391,3 +391,18 @@ h1, h2, h3, h4, h5 {
 .gridright {
   grid-column: 2/3;
 }
+
+#title-bg {
+  width: 100vw; 
+  height: 100vh;
+  object-fit: cover;
+}
+
+#title {
+  color: var(--color-main);
+  font-size: 12vw;
+  position: absolute;
+  top: 35%;
+  width: 100%;
+  text-align: center;
+}

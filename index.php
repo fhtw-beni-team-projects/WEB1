@@ -6,6 +6,9 @@
     <?php require 'i/head.php'?>
   </head>
   <body>
+    <img id="title-bg" src="https://images.unsplash.com/photo-1499346030926-9a72daac6c63?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8">
+    <h1 id="title">HOTEL NULL</h1>
+
     <?php include 'i/navbar.php'?>
 
     <div class="grid maingrid" id="mainpage">
