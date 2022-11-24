@@ -62,7 +62,8 @@ p, blockquote, pre {
 }
 
 img {
-  max-width: 100%
+  max-width: 768px;
+  max-height: 75vh;
 }
 
 h1, h2, h3, h4, h5 {
@@ -393,8 +394,10 @@ h1, h2, h3, h4, h5 {
 }
 
 #title-bg {
-  width: 100vw; 
+  width: 100vw;
+  max-width: 100vw;
   height: 100vh;
+  max-height: 100vh;
   object-fit: cover;
 }
 
