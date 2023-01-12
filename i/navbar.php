@@ -19,6 +19,12 @@
  			<p class="navText">&nbsp;FAQ</p>
  		</a>
  	</li>
+ 	<li class="navPoint">
+ 		<a class="navLink" href="/rooms.php">
+ 			<i class="fas fa-bed-empty"></i>
+ 			<p class="navText">&nbsp;Rooms</p>
+ 		</a>
+ 	</li>
 
 
 

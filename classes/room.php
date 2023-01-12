@@ -25,10 +25,14 @@ class room
 
 	public function displayRoom($room = $this->room) {
 		# TODO: html
+
+        # snippet for getting correct images
         $thumbnail = glob("img/".$room['id']."_thumb.jpg");
         ?>
         <img src="<?=$thumbnail?>"/>
         <?php
+
+        # the room needs to have onclick="room(<?=$room['id'])"
 	}
 
     static public function available($start, $end, $id) {
