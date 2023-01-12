@@ -30,4 +30,27 @@ class room
         <img src="<?=$thumbnail?>"/>
         <?php
 	}
+
+    static public function available($start, $end, $id) {
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            die("Connection failed: ".$conn->connect_error);
+        }
+
+        $sql = "SELECT room_id FROM orders WHERE (start <= ? AND start >= ?) OR (end <= ? AND end >= ?)";
+        if (isset($id)) {
+            $sql .= " AND room_id = ?"
+        }
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $end, $start, $end, $start);
+        $stmt->execute();
+
+        $available = $stmt->get_result()->fetch_assoc();
+
+        $stmt->close();
+        $conn->close();
+
+        return $available;
+    }
 }

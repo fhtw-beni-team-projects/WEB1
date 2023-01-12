@@ -19,4 +19,6 @@ users: login information
 profiles: personal information. seperate to users to allow in person / telephone reservations (theoretically)
 posts: news posts
 rooms: self explanatory
-reservation: self explanatory
+orders: self explanatory
+
+note for start/end on orders: first and last day are always half, i.e. a room that booked until the 17th can get a new order in for the 17th again
