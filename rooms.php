@@ -16,7 +16,7 @@
 
         <?php
                 $room = new room($_GET['room']);
-                $room->displayRoom();
+                $room->display_room();
         ?>
             </div>
             <div class="feed" id="order">
@@ -46,7 +46,7 @@
             
                     $rooms = new room_list($filter);
     
-                    $rooms->room_list();
+                    $rooms->list_rooms();
     
                     ?>
     

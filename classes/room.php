@@ -1,7 +1,8 @@
 <?php
 class room
 {
-	public $room;
+    public $id;
+	private $room;
 
 	public function __construct($id) {
 		$conn = new mysqli_init();
@@ -23,7 +24,7 @@ class room
 		$this->room = $room;
 	}
 
-	public function displayRoom($room = $this->room) {
+	public function display_room($room = $this->room) {
 		# TODO: html
 
         # snippet for getting correct images
@@ -32,7 +33,7 @@ class room
         <img src="<?=$thumbnail?>"/>
         <?php
 
-        # the room needs to have onclick="room(<?=$room['id'])"
+        # the room needs to have onclick="room(<?=$open_room['id'])"
 	}
 
     static public function available($start, $end, $id) {

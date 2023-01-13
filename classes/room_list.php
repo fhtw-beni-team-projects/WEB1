@@ -3,20 +3,20 @@ class room_list extends room
 {
 	public $filter;
 
-	public function listRooms() {
+	public function list_rooms() {
 		$sql = "SELECT * FROM rooms WHERE " . filter_to_sql();
 		$stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+      # $stmt->bind_param();
         $stmt->execute();
 
-		$rooms = $stmt->get_result()->fetch_assoc();
+		$rooms = $stmt->get_result();
 
         $stmt->close();
         $conn->close();
 
         # TODO: no rooms for filter error message
         foreach ($rooms as $room) {
-        	parent::displayRoom($room);
+        	$this->displayRoom($room->fetch_assoc());
     	}
 	}
 

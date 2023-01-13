@@ -197,4 +197,23 @@ class user
 
         $conn->close();
     }
+
+    static public function is_admin($id = $this->id) {
+
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT perm_lvl FROM users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $perm_lvl = $stmt->get_result()->fetch_assoc();
+
+        $stmt->close();
+        $conn->close();   
+
+        return $perm_lvl;
+    }
 };

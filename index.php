@@ -18,9 +18,17 @@
           <i class="fas fa-exchange-alt"></i>&nbsp;Sidebar
         </button>
 
+        <?php   
+        if (isset($_POST['delete'])) {
+          news::delete($_POST['postid']);
+        }
+        ?>
 
 
         <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
+
+
+        <?php news_list::list_rooms()?>
     
         <?php include 'i/fileLoader/fileLoader.php'?>
 
