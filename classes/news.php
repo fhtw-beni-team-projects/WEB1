@@ -12,11 +12,14 @@ class news
 		}
 	}
 
-	public function display_news($news = $this->news) {
+	public function display_news($news) { # weird error if $this->id is used as default
+		if (!isset($news)) {
+			$news = $this->news;
+		}
 		?>
 		
 		<div class="post main" id="article_<?=$news['id']?>" onclick="open_article(<?=$news['id']?>)">
-			<p class="info">Posted by <?=-----?> on <?=$news['timestamp']?></p>
+			<p class="info">Posted by <?=$news['author']?> on <?=$news['timestamp']?></p>
         	<h2 class="title"><?=$news['title']?></h2>
         	<a onclick="noClick()"><?=$news['text']?></a>
 
@@ -37,10 +40,14 @@ class news
       	<?php
 	}
 
-	protected function get_news($id = $this->id) {
+	protected function get_news($id) { # weird error if $this->id is used as default
 
 		if (!isset($id)) {
-			return;
+			if (isset($this->id)) {
+				$id = $this->id;
+			} else {
+				return;
+			}
 		}
 
 		$conn = new mysqli_init();

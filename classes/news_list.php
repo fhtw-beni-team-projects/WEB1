@@ -1,7 +1,16 @@
 <?php
 class news_list extends news
 {
-	static public function list_news() {
+	public function __construct() {
+
+	}
+
+	public function list_news() {
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+        	die("Connection failed: ".$conn->connect_error);
+        }
+
 		$sql = "SELECT * FROM news ORDER BY timestamp DESC";
 		$stmt = $conn->prepare($sql);
       # $stmt->bind_param();
@@ -9,11 +18,11 @@ class news_list extends news
 
 		$news_list = $stmt->get_result();
 
-        $stmt->close();
-        $conn->close();
-
         foreach ($news_list as $news) {
-        	$this->display_news($news->fetch_assoc());
+        	$this->display_news($news);
     	}
+
+    	$stmt->close();
+        $conn->close();
 	}
-}
+};

@@ -24,7 +24,11 @@ class room
 		$this->room = $room;
 	}
 
-	public function display_room($room = $this->room) {
+	public function display_room($room) {
+        if (!isset($room)) {
+            $room = $this->room;
+        }
+
 		# TODO: html
 
         # snippet for getting correct images
@@ -44,7 +48,7 @@ class room
 
         $sql = "SELECT room_id FROM orders WHERE (start <= ? AND start >= ?) OR (end <= ? AND end >= ?)";
         if (isset($id)) {
-            $sql .= " AND room_id = ?"
+            $sql .= " AND room_id = ?";
         }
 
         $stmt = $conn->prepare($sql);

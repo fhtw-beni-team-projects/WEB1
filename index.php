@@ -28,7 +28,10 @@
         <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
 
 
-        <?php news_list::list_rooms()?>
+        <?php 
+          $feed = new news_list();
+          $feed->list_news()
+        ?>
     
         <?php include 'i/fileLoader/fileLoader.php'?>
 
