@@ -6,48 +6,56 @@
     <?php require 'i/head.php'?>
   </head>
   <body>
+    <?php
+    if (!isset($_GET['article'])) {
+    ?>
     <img id="title-bg" src="https://images.unsplash.com/photo-1499346030926-9a72daac6c63?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8">
     <h1 id="title">HOTEL NULL</h1>
+    <?php } ?>
 
     <?php include 'i/navbar.php'?>
 
     <div class="grid maingrid" id="mainpage">
       <div class="feed" id="news">
-    
-        <button type="button" class="mobile" onclick="switchFeed('sidebar')">
-          <i class="fas fa-exchange-alt"></i>&nbsp;Sidebar
-        </button>
-
         <?php   
         if (isset($_POST['delete'])) {
           news::delete($_POST['postid']);
         }
-        ?>
+        if (isset($_GET['article'])) { 
+          $article = new news($_GET['article']);
+          $article->display_news();
+        } else { ?>
+          <button type="button" class="mobile" onclick="switchFeed('sidebar')">
+            <i class="fas fa-exchange-alt"></i>&nbsp;Sidebar
+          </button>
+
+        
 
 
-        <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
+          <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
 
 
-        <?php 
-          $feed = new news_list();
-          $feed->list_news()
-        ?>
-    
-        <?php include 'i/fileLoader/fileLoader.php'?>
-
-        <?php
-        $files = glob("img/*.jpg");
-        foreach($files as $file) {
+          <?php 
+            $feed = new news_list();
+            $feed->list_news()
           ?>
-
-          <div class="post main">
-            <img src="<?=$file?>"/>
-          </div>
+    
+          <?php include 'i/fileLoader/fileLoader.php'?>
 
           <?php
-        }
+          $files = glob("img/*.jpg");
+          foreach($files as $file) {
+            ?>
 
+            <div class="post main">
+              <img src="<?=$file?>"/>
+            </div>
+
+            <?php
+          }
+        }
         ?>
+
       </div>
 
       <div class="feed" id="sidebar">

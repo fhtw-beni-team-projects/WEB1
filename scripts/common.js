@@ -1,3 +1,5 @@
+var called = false; // idk what this is, but it works
+
 function openForm(form) {
   $("#" + form + ", .darkener").show();
 }
@@ -31,9 +33,9 @@ function open_article(news_id) {
   if (called) return false;
   called = true;
   let form = document.createElement('form');
-  form.action = 'post';
+  form.action = '';
   form.method = 'GET';
-  form.innerHTML = '<input type="hidden" name="arcticle" value="' + news_id + '">';
+  form.innerHTML = '<input type="hidden" name="article" value="' + news_id + '">';
   document.body.append(form);
   form.submit();
 }

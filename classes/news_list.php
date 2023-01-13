@@ -19,7 +19,7 @@ class news_list extends news
 		$news_list = $stmt->get_result();
 
         foreach ($news_list as $news) {
-        	$this->display_news($news);
+        	$this->display_news($news, false);
     	}
 
     	$stmt->close();

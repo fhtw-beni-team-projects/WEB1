@@ -7,13 +7,12 @@ class news
 	public function __construct($id) {
 
 		if (isset($id)) {
-			$this->id = $id;
-			get_news();
+			$this->get_news($id);
 		}
 	}
 
-	public function display_news($news) { # weird error if $this->id is used as default
-		if (!isset($news)) {
+	public function display_news($news = false, $full = true) { # weird error if $this->id is used as default
+		if (!$news) {
 			$news = $this->news;
 		}
 		?>
@@ -22,14 +21,16 @@ class news
 			<p class="info">Posted by <?=$news['author']?> on <?=$news['timestamp']?></p>
         	<h2 class="title"><?=$news['title']?></h2>
         	<a onclick="noClick()"><?=$news['text']?></a>
+        	<!-- TODO: if $full = false: limit text lenght and add "read more" button -->
+        	<!-- TODO: include image -->
 
         	<?php
         	if (isset($_SESSION['userid']) && user::is_admin($_SESSION['userid'])) {
         	?>
 
-        	<!-- TODO: edit function -->
-           	<br><p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="editPost(<?=$news['id']?>)"><i class="far fa-edit"></i>&nbsp;Edit</a></p>
-            <p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="deletePost(<?=$news['id']?>)"><i class="far fa-trash-alt"></i>&nbsp;Delete</a></p>
+        		<!-- TODO: edit function -->
+           		<br><p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="editPost(<?=$news['id']?>)"><i class="far fa-edit"></i>&nbsp;Edit</a></p>
+            	<p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="deletePost(<?=$news['id']?>)"><i class="far fa-trash-alt"></i>&nbsp;Delete</a></p>
             
             <?php
         	}
