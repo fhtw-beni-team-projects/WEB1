@@ -72,12 +72,12 @@ function delete_article(id) {
   if (called) return false;
   called = true;
 
-  $("#deletePost, .darkener").show();
+  $("#delete_article, .darkener").show();
 
   $("#deletePostConfirm").click(function() {
-    $.post("/", {
+    $.post("/delete.php", {
       delete: 1,
-      postid: id,
+      id: id,
     }, function(success) {
       if (success) {
         $("#article_" + id).detach();

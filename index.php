@@ -17,10 +17,7 @@
 
     <div class="grid maingrid" id="mainpage">
       <div class="feed" id="news">
-        <?php   
-        if (isset($_POST['delete'])) {
-          news::delete($_POST['postid']);
-        }
+        <?php
         if (isset($_GET['submit'])) {
           news::submit_news();
           $url = $_POST['url'];
@@ -40,30 +37,12 @@
             <i class="fas fa-exchange-alt"></i>&nbsp;Sidebar
           </button>
 
-        
-
-
-          <div class="post main" id="WIP-text">WIP placeholder for the semester project</div>
-
-
           <?php 
             $feed = new news_list();
             $feed->list_news()
           ?>
-    
-          <?php include 'i/fileLoader/fileLoader.php'?>
 
-          <?php
-          $files = glob("img/*.jpg");
-          foreach($files as $file) {
-            ?>
-
-            <div class="post main">
-              <img src="<?=$file?>"/>
-            </div>
-
-            <?php
-          }
+        <?php
         }
         ?>
 

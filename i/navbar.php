@@ -93,4 +93,5 @@
 <?php
 	include 'logout.php';
 	include 'login.php';
+	include 'delete.php'
 ?>
