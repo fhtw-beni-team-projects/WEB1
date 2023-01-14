@@ -21,25 +21,34 @@ class news
 			<p class="info">Posted by <?=$news['author']?> on <?=$news['timestamp']?></p>
         	<h2 class="title"><?=$news['title']?></h2>
         	<?php
-        	if ($full) {
-				echo '<p onclick="noClick()">'.$news['text'].'</p>';
-        	} else {
-        		echo '<p onclick="noClick()">'.substr($news['text'], 0, 400).'... <a>Read More</a></p>';
-        	}
+        		if (file_exists("img/".$room['id']."_thumb.jpg")) {
+        			$image = true
         	?>
-        	<!-- TODO: if $full = false: limit text lenght and add "read more" button -->
-        	<!-- TODO: include image -->
+        			<img src="<?=glob("img/".$room['id']."_thumb.jpg")?>"/>
+        	<?php
+        		}
+        		if ($image) {
+        			$limit = 250;
+        		} else {
+        			$limit = 750;
+        		}
+        		if ($full) {
+					echo '<p onclick="noClick()">'.$news['text'].'</p>';
+        		} else {
+        			echo '<p onclick="noClick()">'.substr($news['text'], 0, $limit).'... <a>Read More</a></p>';
+        		}
+        	?>
 
         	<?php
-        	if (isset($_SESSION['userid']) && user::is_admin($_SESSION['userid'])) {
+        		if (isset($_SESSION['userid']) && user::is_admin($_SESSION['userid'])) {
         	?>
 
-        		<!-- TODO: edit function -->
-           		<br><p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="editPost(<?=$news['id']?>)"><i class="far fa-edit"></i>&nbsp;Edit</a></p>
-            	<p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="deletePost(<?=$news['id']?>)"><i class="far fa-trash-alt"></i>&nbsp;Delete</a></p>
+        			<!-- TODO: edit function -->
+           			<br><p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="editPost(<?=$news['id']?>)"><i class="far fa-edit"></i>&nbsp;Edit</a></p>
+            		<p class="info">&nbsp;&nbsp;<a class="actionlink" onclick="deletePost(<?=$news['id']?>)"><i class="far fa-trash-alt"></i>&nbsp;Delete</a></p>
             
             <?php
-        	}
+        		}
         	?>
 
       	</div>
