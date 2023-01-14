@@ -30,23 +30,15 @@ class room
         }
 
         ?>
-        <div class="post main" id="room">
-            Room: <?php echo $room['id']; ?> </br>
-            Description: <?php echo $room['name text']; ?> </br>
-            Price: <?php echo $room['price']; ?> </br>
-            Number of persons: 
-            <?php 
-                for($i = 0; $x <= $room['beds']; $x++){
-                    echo "<i class='fa-solid fa-user'></i>";
-                }
-            ?>
+        <div class="post main grid imagegrid" id="room<?=$room['id']?>" onclick="open_room(<?=$room['id']?>)">
+            <img class="gridleft" src="<?=glob("img/".$room['id']."_thumb.jpg")?>"/>
+            <div class="gridright">
+                <h2 class="title">Room: <?=$room['name']?></h2>
+                <a onclick="noClick()"><?=$room['descr']?></a>
+                <p>Price: <?=$room['price']?></p>
+                <p>Beds:<?=str_repeat(' <i class="fas fa-user"></i>', $room['beds'])?></p>
+            </div>
         </div>
-        <?php
-		
-        # snippet for getting correct images
-        $thumbnail = glob("img/".$room['id']."_thumb.jpg");
-        ?>
-        <img src="<?=$thumbnail?>"/>
         <?php
 
         # the room needs to have onclick="room(<?=$open_room['id'])"

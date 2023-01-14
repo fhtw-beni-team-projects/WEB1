@@ -417,3 +417,7 @@ h1, h2, h3, h4, h5 {
 .portrait {
   height: 50%;
 }
+
+.grid.imagegrid {
+  grid-template-columns: min-content auto;
+}

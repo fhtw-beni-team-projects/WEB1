@@ -22,7 +22,7 @@ function open_room(room_id) {
   if (called) return false;
   called = true;
   let form = document.createElement('form');
-  form.action = 'post';
+  form.action = '';
   form.method = 'GET';
   form.innerHTML = '<input type="hidden" name="room" value="' + room_id + '">';
   document.body.append(form);

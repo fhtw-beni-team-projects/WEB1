@@ -18,7 +18,7 @@ class room_list extends room
 		$sql = "SELECT * FROM rooms" . $this->filter_to_sql();
 		$stmt = $conn->prepare($sql);
   	  # $stmt->bind_param();
-    	# $stmt->execute();
+    	$stmt->execute();
 
 		$rooms = $stmt->get_result();
 
@@ -33,19 +33,18 @@ class room_list extends room
 
 	protected function filter_to_sql() {
 		# converts the associative array $filter to SQL comparisons
-		if ($this->filter) {
-			$sql = " WHERE ";
-		} else {
+		if (!$this->filter) {
 			return;
 		}
 
+		$sql = "";
 		foreach ($this->filter as $attribute => $value) {
 			if(str_starts_with($attribute, "max_")) {
-				$comp = explode($attribute, "_", 2);
-				$comp[0] = " >= ";
-			} elseif(str_starts_with($attribute, "min_")) {
-				$comp = explode($attribute, "_", 2);
+				$comp = explode("_", $attribute, 2);
 				$comp[0] = " <= ";
+			} elseif(str_starts_with($attribute, "min_")) {
+				$comp = explode("_", $attribute, 2);
+				$comp[0] = " >= ";
 			} else {
 				$comp[0] = " = ";
 				$comp[1] = $attribute;
@@ -59,6 +58,8 @@ class room_list extends room
 			}
 			$sql .= $comp_str;
 		}
+
+		$sql = " WHERE " . $sql;
 
 		return $sql;
 	}
