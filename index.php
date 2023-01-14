@@ -21,9 +21,20 @@
         if (isset($_POST['delete'])) {
           news::delete($_POST['postid']);
         }
+        if (isset($_GET['submit'])) {
+          news::submit_news();
+          $url = $_POST['url'];
+          header("Location: $url");
+        }
         if (isset($_GET['article'])) { 
           $article = new news($_GET['article']);
-          $article->display_news();
+          if(isset($_GET['edit'])) {
+            $article->edit_form();
+          } else {
+            $article->display_news();
+          }
+        } elseif (isset($_GET['new'])) {
+         news::news_form();
         } else { ?>
           <button type="button" class="mobile" onclick="switchFeed('sidebar')">
             <i class="fas fa-exchange-alt"></i>&nbsp;Sidebar

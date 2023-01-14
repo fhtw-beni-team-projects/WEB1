@@ -56,11 +56,14 @@ class room
         }
 
         $stmt = $conn->prepare($sql);
+        $types = "ss";
+        $parameters = array($end, $start);
         if ($id) {
-            $stmt->bind_param("ssi", $end, $start, $room_id);
-        } else {
-            $stmt->bind_param("ss", $end, $start);
+            $types .= "i";
+            $parameters[] = $room_id=
         }
+
+        $stmt->bind_param($types, $parameters);
         $stmt->execute();
         $result = $stmt->get_result();
 

@@ -213,11 +213,11 @@ class user
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $perm_lvl = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result()->fetch_assoc();
 
         $stmt->close();
         $conn->close();   
 
-        return $perm_lvl;
+        return $result['perm_lvl'];
     }
 };

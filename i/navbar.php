@@ -52,14 +52,22 @@
 <?php
 	} else {
 		$id = null;
+    	$user = new user($id);
 		if(isset($_SESSION['userid'])) {
 			$id = $_SESSION['userid'];
 		}
-    	$user = new user($id);
-	#   TODO: new post should only be diplayed for admin users
-?>
 
-	<!--<li class="navPoint"><form method="post" aria-label="Make a new post" action="post?newpost"><button class="navLink" type="submit"><i class="navIcon fas fa-edit"></i><p class="navText">&nbsp;New Post</p></button></form></li>-->
+		if (user::is_admin($id)) {
+			?>
+ 				<li class="navPoint">
+ 					<button class="navLink" onclick="new_article()">
+ 						<i class="navIcon fas fa-edit"></i>
+ 						<p class="navText">&nbsp;New Article</p>
+ 					</button>
+ 				</li>
+			<?php
+		}
+?>
 
     <li class="navPoint right">
     	<form method="post" aria-label="Your account" action="user?userid='<?=$user->id?>'">
