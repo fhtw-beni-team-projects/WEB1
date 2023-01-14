@@ -11,7 +11,7 @@ class news
 		}
 	}
 
-	public function display_news($news = false, $full = true) { # weird error if $this->id is used as default
+	public function display_news($news = false, $full = true) {
 		if (!$news) {
 			$news = $this->news;
 		}
@@ -20,7 +20,13 @@ class news
 		<div class="post main" id="article_<?=$news['id']?>" onclick="open_article(<?=$news['id']?>)">
 			<p class="info">Posted by <?=$news['author']?> on <?=$news['timestamp']?></p>
         	<h2 class="title"><?=$news['title']?></h2>
-        	<a onclick="noClick()"><?=$news['text']?></a>
+        	<?php
+        	if ($full) {
+				echo '<p onclick="noClick()">'.$news['text'].'</p>';
+        	} else {
+        		echo '<p onclick="noClick()">'.substr($news['text'], 0, 400).'... <a>Read More</a></p>';
+        	}
+        	?>
         	<!-- TODO: if $full = false: limit text lenght and add "read more" button -->
         	<!-- TODO: include image -->
 
@@ -41,9 +47,9 @@ class news
       	<?php
 	}
 
-	protected function get_news($id) { # weird error if $this->id is used as default
+	protected function get_news($id = false) {
 
-		if (!isset($id)) {
+		if (!$id) {
 			if (isset($this->id)) {
 				$id = $this->id;
 			} else {

@@ -2,7 +2,7 @@
 class room
 {
     public $id;
-	private $room;
+	public $room;
 
 	public function __construct($id) {
 		$conn = new mysqli_init();
@@ -25,7 +25,7 @@ class room
 	}
 
 	public function display_room($room) {
-        if (!isset($room)) {
+        if (!$room) {
             $room = $this->room;
         }
 
@@ -35,7 +35,7 @@ class room
             <div class="gridright">
                 <h2 class="title">Room: <?=$room['name']?></h2>
                 <a onclick="noClick()"><?=$room['descr']?></a>
-                <p>Price: <?=$room['price']?></p>
+                <p>Price: € <?=$room['price']?>/night</p>
                 <p>Beds:<?=str_repeat(' <i class="fas fa-user"></i>', $room['beds'])?></p>
             </div>
         </div>
@@ -44,26 +44,36 @@ class room
         # the room needs to have onclick="room(<?=$open_room['id'])"
 	}
 
-    static public function available($start, $end, $id) {
+    static public function available($start, $end, $room_id = false) {
         $conn = new mysqli_init();
         if ($conn->connect_error) {
             die("Connection failed: ".$conn->connect_error);
         }
 
-        $sql = "SELECT room_id FROM orders WHERE (start <= ? AND start >= ?) OR (end <= ? AND end >= ?)";
-        if (isset($id)) {
+        $sql = "SELECT DISTINCT room_id FROM orders WHERE start < ? AND end > ?";
+        if ($id) {
             $sql .= " AND room_id = ?";
         }
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $end, $start, $end, $start);
+        if ($id) {
+            $stmt->bind_param("ssi", $end, $start, $room_id);
+        } else {
+            $stmt->bind_param("ss", $end, $start);
+        }
         $stmt->execute();
-
-        $available = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
 
         $stmt->close();
         $conn->close();
 
-        return $available;
+        if ($room_id && $result->num_rows > 0) {
+            return false;
+        } elseif ($room_id) {
+            return true;
+        } else {
+            # TODO: list of id's
+            return $available;
+        }
     }
 }

@@ -12,7 +12,7 @@ class user
     public $name; # user name
     public $user; # user as an array
 
-    public function __construct($id)
+    public function __construct($id = false)
     {
         if (isset($_GET['login'])) {
             $this->login();
@@ -198,7 +198,7 @@ class user
         $conn->close();
     }
 
-    static public function is_admin($id = $this->id) {
+    static public function is_admin($id) {
 
         $conn = new mysqli_init();
         if ($conn->connect_error) {

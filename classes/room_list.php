@@ -29,7 +29,7 @@ class room_list extends room
         foreach ($rooms as $room) {
         	$this->display_room($room);
     	}
-	}
+	}	
 
 	protected function filter_to_sql() {
 		# converts the associative array $filter to SQL comparisons
@@ -38,6 +38,16 @@ class room_list extends room
 		}
 
 		$sql = "";
+		if (isset($this->filter['start']) && isset($this->filter['end'])) {
+			foreach (room::available($this->filter['start']) && $this->filter['end'] as $id) {
+				if (!empty($sql)) {
+					$sql .= ", ";
+				}
+				$sql .= $id;
+			}
+			$sql = "id in (" . $sql . ")";
+		}
+
 		foreach ($this->filter as $attribute => $value) {
 			if(str_starts_with($attribute, "max_")) {
 				$comp = explode("_", $attribute, 2);

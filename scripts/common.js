@@ -66,3 +66,10 @@ function deletePost(id) {
 
   reload();
 }
+
+function reload() {
+  var head = document.getElementsByTagName('head')[0];
+  var script = document.createElement('script');
+  script.src = '../scripts/common.js';
+  head.appendChild(script);
+}

@@ -308,6 +308,10 @@ h1, h2, h3, h4, h5 {
   grid-column: 2/3;
 }
 
+.grid > .formrightright {
+  grid-column: 3/4;
+}
+
 .grid > .formfull {
   grid-column: 1/3;
 }
@@ -420,4 +424,39 @@ h1, h2, h3, h4, h5 {
 
 .grid.imagegrid {
   grid-template-columns: min-content auto;
+}
+
+.grid.post {
+  margin: 10px 0 10px 0;
+}
+
+.feedback {
+  position: fixed;
+  width: auto;
+  background: var(--bg-inv-lite);
+  color: var(--color-inv-lite);
+  border-radius: 5px;
+  margin: 15px;
+  z-index: 4;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 0px 1px #000;
+}
+
+.error {
+  color: var(--color-inv);
+  background: var(--red-lite);
+}
+
+.warning {
+  color: var(--color-inv);
+  background: var(--yellow-lite);
+}
+
+.info {
+  color: var(--color-main-lite);
+  font-size: 12px;
+  float: right;
+  margin: 0;
+  z-index: 2
 }
