@@ -1,12 +1,9 @@
 <?php
 
-// IDEA: method for login, signup, settings
-
 if (isset($_GET['logout'])) {
     $url = $_POST['url'];
     session_destroy();
     header("Location: $url");
-    die("Logout successful");
 };
 if (isset($errorMessage)) {
     ?>

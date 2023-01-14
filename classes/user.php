@@ -16,8 +16,12 @@ class user
     {
         if (isset($_GET['login'])) {
             $this->login();
+            $url = $_POST['url'];
+            header("Location: $url");
         } elseif (isset($_GET['signup'])) {
             $this->signup();
+            $url = $_POST['url'];
+            header("Location: $url");
         }
 
         if (!$id) {
@@ -69,9 +73,9 @@ class user
         $created_at = new DateTime($this->user['created_at']);
         $created_at = $created_at->format('j.n.Y');
 
-        # echo post as html
+        # echo user as html
         #
-        # TODO: proper way to include html
+        # TODO: cleanup
 
         echo "<div class=\"profile sidebar\"><h3>".$this->user['name']."</h3><p>Member since ".$created_at."</p>";
         if (strlen($this->user['about']) != 0) {

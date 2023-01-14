@@ -74,19 +74,7 @@
             </div>
         </div>
         <div class="feed" id="sidebar">
-            <!--
-                    
-                TODO: Order Form
-
-                - class 'order' to handle backend
-
-                - associative array $order
-
-                - argument $profile_id for place_order() is user::user['profile_id']
-
-                - order::order['start'] and order::order['end'] are strings in format "YYYY-MM-DD"
-
-            -->
+            
         </div>
         <?php
             } else {

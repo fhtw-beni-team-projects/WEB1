@@ -29,7 +29,7 @@
 
 
 <?php
-	if (!(isset($_SESSION['userid']) || isset($_GET['login']) || isset($_GET['signup']))) {
+	if (!(isset($_SESSION['userid']) || isset($_GET['login']) || isset($_GET['signup']) || isset($_GET['logout']))) {
 		$url = $_SERVER['REQUEST_URI'];
 ?>
 
@@ -83,6 +83,6 @@
 </ul>
 
 <?php
-	include 'login.php';
 	include 'logout.php';
+	include 'login.php';
 ?>

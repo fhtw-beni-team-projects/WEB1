@@ -9,117 +9,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-
-
-/*if (isset($_GET['login'])) {
-    $sql = "SELECT * FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-
-    $email = $_POST['email'];
-    $pwd = $_POST['pwd'];
-    $url = $_POST['url']; // source url
-    // TODO: verify if url is needed
-    // => login without reloading the page
-
-    $stmt->execute();
-
-    $user = $stmt->get_result()->fetch_assoc();
-
-    $stmt->close();
-
-    if ($user && password_verify($pwd, $user['pwd_hash'])) {
-        $_SESSION['id'] = $user['id'];
-        header("Location: $url");
-        $statusMessage = "Login successful";
-    } else {
-        $statusMessage = "Username and password don't match<br>";
-    }
-
-    if($_POST['email'] == "asd@asd.at" && $_POST['pwd'] == "asd") {
-        $_SESSION['userid'] = 123;
-    }
-}*/
-
-
-
 if (isset($_GET['signup'])) {
-    /*
-    $error = false;
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $pwd = $_POST['pwd'];
-    $gender = $_POST['gender'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $url = $_POST['url'];
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $statusMessage = "Please enter a vaild e-mail adress<br>";
-        $error = true;
-    }
-
-    // TODO: pwd requirements
-    if (!strlen($pwd)) {
-        $statusMessage = "Please enter a password<br>";
-        $error = true;
-    }
-
-    // TODO: verify all fields
-
-    if (!$error) {
-        $sql = "SELECT * FROM users WHERE username = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $success = $stmt->get_result();
-
-        if ($success) {
-            $statusMessage = "Username already taken<br>";
-            $error = true;
-        }
-    }
-    if (!$error) {
-        $sql = "SELECT * FROM users WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $success = $stmt->get_result();
-        
-        if ($success) {
-            $statusMessage = "E-mail already in use<br>";
-            $error = true;
-        }
-    }
-
-    if (!$error) {
-        $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
-
-
-        // TODO: seperate table for contact details
-        // users table just for login details
-        $sql = "INSERT INTO users (username, email, pwd_hash) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $username, $email, $pwd_hash);
-
-        if ($stmt->execute()) {
-            $sql = "SELECT * FROM users WHERE email = ?";
-            $stmt2 = $conn->prepare($sql);
-            $stmt2->bind_param("s", $email);
-            $stmt2->execute();
-            $user = $stmt2->get_result()->fetch_assoc();
-            $stmt->close();
-
-            $_SESSION['id'] = $user['id'];
-            header("Location: $url");
-            $statusMessage = "Success! Affected rows: " . $stmt->affected_rows;
-        } else {
-            $statusMessage = "Couldn't send data<br>";
-        }
-
-        $stmt->close();
-    }*/
 }
 
 // TODO: transfer to class user.php
@@ -158,7 +48,7 @@ $url = $_SERVER['REQUEST_URI'];
         <!-- TODO: verify login without reloading page -->
 
         <!-- TEMP: redirecting user back to origin page after logging in -->
-        <input type="hidden" name="url" value="?=$url?" />
+        <input type="hidden" name="url" value="<?=$url?>" />
 
 
     </div>
