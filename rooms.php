@@ -44,6 +44,8 @@
                 # filter is an associativ array with all table columns as possible filters
                 # TODO: get request for filter
             
+                    $filter['max_beds'] = 4;
+
                     $rooms = new room_list($filter);
     
                     $rooms->list_rooms();

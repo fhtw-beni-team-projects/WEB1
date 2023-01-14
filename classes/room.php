@@ -29,8 +29,20 @@ class room
             $room = $this->room;
         }
 
-		# TODO: html
-
+        ?>
+        <div class="post main" id="room">
+            Room: <?php echo $room['id']; ?> </br>
+            Description: <?php echo $room['name text']; ?> </br>
+            Price: <?php echo $room['price']; ?> </br>
+            Number of persons: 
+            <?php 
+                for($i = 0; $x <= $room['beds']; $x++){
+                    echo "<i class='fa-solid fa-user'></i>";
+                }
+            ?>
+        </div>
+        <?php
+		
         # snippet for getting correct images
         $thumbnail = glob("img/".$room['id']."_thumb.jpg");
         ?>

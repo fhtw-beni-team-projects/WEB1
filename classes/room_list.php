@@ -18,7 +18,7 @@ class room_list extends room
 		$sql = "SELECT * FROM rooms" . $this->filter_to_sql();
 		$stmt = $conn->prepare($sql);
   	  # $stmt->bind_param();
-    	$stmt->execute();
+    	# $stmt->execute();
 
 		$rooms = $stmt->get_result();
 
