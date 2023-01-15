@@ -64,8 +64,8 @@ $url = $_SERVER['REQUEST_URI'];
             <option value="divers">Divers</option>
         </select>
 
-        <label class="descr formleft" for="firstname">Vorname</label><input class="popup_input formright forminput" type="text" name="firstname" />
-        <label class="descr formleft" for="lastname">Nachname</label><input class="popup_input formright forminput" type="text" name="lastname" />
+        <label class="descr formleft" for="fname">Vorname</label><input class="popup_input formright forminput" type="text" name="fname" />
+        <label class="descr formleft" for="lname">Nachname</label><input class="popup_input formright forminput" type="text" name="lname" />
 
         <label class="descr formleft" for="email">E-Mail</label><input class="popup_input formright forminput" type="email" name="email" />
 

@@ -180,7 +180,7 @@ class user
     
             // TODO: seperate table for contact details
             // users table just for login details
-            $sql = "INSERT INTO users (username, email, pwd_hash, title, fname, lname) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO users (username, email, pwd_hash, title, fname, lname) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssssss", $username, $email, $pwd_hash, $gender, $fname, $lname);
     
