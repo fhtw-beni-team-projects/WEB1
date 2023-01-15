@@ -149,16 +149,14 @@ class user
             $error = true;
         }
     
-        // TODO: verify all fields
-    
-        /*if (!$error) {
+        if (!$error) {
             $sql = "SELECT * FROM users WHERE username = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $username);
             $stmt->execute();
-            $success = $stmt->get_result();
+            $result = $stmt->get_result();
     
-            if ($success) {
+            if ($result->num_rows > 0) {
                 $statusMessage = "Username already taken<br>";
                 $error = true;
             }
@@ -168,13 +166,13 @@ class user
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $email);
             $stmt->execute();
-            $success = $stmt->get_result();
-            
-            if ($success) {
+            $result = $stmt->get_result();
+    
+            if ($result->num_rows > 0) {
                 $statusMessage = "E-mail already in use<br>";
                 $error = true;
             }
-        }*/
+        }
     
         if (!$error) {
             $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);

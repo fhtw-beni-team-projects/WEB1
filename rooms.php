@@ -9,7 +9,50 @@
         <?php include 'i/navbar.php'?>
     
         <?php
-            if(isset($_GET['room'])) {
+            if(isset($_GET['order']) && !isset($_GET['room'])) {
+        ?>
+        <div class="grid maingrid" id="room_list">
+            <div class="feed" id="room-detail">
+        <?php
+                $order = new order($_GET['order']);
+                $user = new user();
+                if ($user->user['profile_id'] != $order->order['profile_id'] && !user::is_admin($user->id)) {
+                    echo '<p class="feedback error">Unfortunately you don\'t have access to this order</p>';
+                } else {
+                    $room = new room($order->order['room_id']);
+                    $room->display_room();
+
+                    $diff = date_diff(date_create($order->order['start']), date_create($order->order['end']));
+                    $nights = $diff->format("%a");
+                    $base = $room->room['price'] * $nights;
+                    $total = $base;
+
+        ?>
+                <div class="post main" id="order">
+                    <div class="equal grid">
+                        <p class="descr formleft"><?=$order->order['start']?> to <?=$order->order['end']?> (<?=$nights?> nights): </p><p class="descr formright">€ <?=$base?></p>
+                            <?php
+                            if ($order->order['breakfast']) {
+                                $total += $nights * 10 * $room->room['beds'];
+                                echo '<p class="descr formleft">Breakfast:</p><p class="descr formright">€ '. $nights * 10 * $room->room['beds'] .'</p>';
+                            }
+                            if ($order->order['parking']) {
+                                $total += $nights * 5;
+                                echo '<p class="descr formleft">Parking:</p><p class="descr formright">€ '. $nights * 5 .'</p>';
+                            }
+                            if ($order->order['pets']) {
+                                $total += 20;
+                                echo '<p class="descr formleft">Pet cleaning fee:</p><p class="descr formright">€ 20</p>';
+                            }
+                            ?>
+                        <p class="descr formleft">Total:</p><p class="descr formright">€ <?=$total?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+                }
+            } elseif(isset($_GET['room'])) {
         ?>
         <div class="grid maingrid" id="room_list">
             <div class="feed" id="room-detail">
@@ -64,9 +107,9 @@
                         <input type="hidden" name="room_id" value="<?=$room->id?>">
                         <label class="descr formleft" for="start">Start date: </label><input class="input formright forminput" type="date" name="start" />
                         <label class="descr formleft" for="end">End date: </label><input class="input formright forminput" type="date" name="end" />
-                        <label class="descr formleft" for="breakfast">Include breakfast (+ €10/night/person): </label><input class="input formright forminput" type="checkbox" name="breakfast" />
-                        <label class="descr formleft" for="parking">Include parking (+ €5   /night): </label><input class="input formright forminput" type="checkbox" name="parking" />
-                        <label class="descr formleft" for="pets">Bring pets (+ €20 cleaning fee): </label><input class="input formright forminput" type="checkbox" name="pets" />
+                        <label class="descr formleft" for="breakfast">Include breakfast (+ €10/night/person): </label><input class="input formright forminput" type="checkbox" name="breakfast" value="1" />
+                        <label class="descr formleft" for="parking">Include parking (+ €5   /night): </label><input class="input formright forminput" type="checkbox" name="parking" value="1" />
+                        <label class="descr formleft" for="pets">Bring pets (+ €20 cleaning fee): </label><input class="input formright forminput" type="checkbox" name="pets" value="1" />
                         <button type="submit" class="btn formright" name="formaction">Preview order</button>
                     </div>
                 </form>

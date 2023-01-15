@@ -24,7 +24,7 @@ class room
 		$this->room = $room;
 	}
 
-	public function display_room($room) {
+	public function display_room($room = false) {
         if (!$room) {
             $room = $this->room;
         }
@@ -60,10 +60,10 @@ class room
         $parameters = array($end, $start);
         if ($id) {
             $types .= "i";
-            $parameters[] = $room_id=
+            $parameters[] = $room_id;
         }
 
-        $stmt->bind_param($types, $parameters);
+        $stmt->bind_param($types, ...$parameters);
         $stmt->execute();
         $result = $stmt->get_result();
 

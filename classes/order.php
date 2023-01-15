@@ -1,11 +1,28 @@
 <?php
 class order
 {
-	public $profile_id;
+    public $order;
 
-    public function __construct() {
-        $user = new user();
-        $this->profile_id = $user->user['profile_id'];
+    public function __construct($id = false) {
+        if(!$id) {
+            return;
+        }
+
+        $conn = new mysqli_init();
+
+        if ($conn->connect_error) {
+            die("Connection failed: ".$conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $this->order = $stmt->get_result()->fetch_assoc();
+
+        $stmt->close();
+        $conn->close();
     }
 
 	public function place_order() {
@@ -48,7 +65,7 @@ class order
         if (!$error) {
             $sql = "INSERT INTO orders (room_id, profile_id, start, end, breakfast, parking, pets) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iissiii", $room_id, $this->profile_id, $start, $end, $breakfast, $parking, $pets);
+            $stmt->bind_param("iissiii", $room_id, $profile_id, $start, $end, $breakfast, $parking, $pets);
     
             if ($stmt->execute()) {
                 # TODO: order confirmation
