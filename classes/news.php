@@ -27,7 +27,7 @@ class news
         			<img src="<?=glob("img/".$news['id']."_thumb.jpg")?>"/>
         	<?php
         		}
-        		if ($image) {
+        		if (isset($image)) {
         			$limit = 250;
         		} else {
         			$limit = 750;
