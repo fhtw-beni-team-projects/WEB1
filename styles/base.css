@@ -461,3 +461,10 @@ h1, h2, h3, h4, h5 {
   margin: 0;
   z-index: 2
 }
+
+.room_img {
+  height: 200px;
+}
+.news_img {
+  max-height: 500px;
+}

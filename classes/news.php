@@ -24,7 +24,7 @@ class news
         		if (file_exists("./img/".$news['id']."_news.jpg")) {
         			$image = true
         	?>
-        			<img src="./img/<?=$news['id']?>_news.jpg"/>
+        			<img class="news_img" src="./img/<?=$news['id']?>_news.jpg"/>
         	<?php
         		}
         		if (isset($image)) {
@@ -62,15 +62,18 @@ class news
 
 	static public function news_form($edit = false, $news = false) {
 		if (!$news) {
-			$news = array("title" => "", "text" => "", "author" => ""); #scuffed af
+			$news = array("title" => "", "text" => ""); #scuffed af
+			$user = new user();
+			$news['author'] = $user->user['fname'] . " " . $user->user['lname'];
 		}
+
 		?>
 		<form method="post" action="?submit" class="form formmax" id="article_form">
     		<div class="formcontent formcontentmax">
     		<p class="descr formleft">Title</p><input class="formright forminput" type="text" name="title" placeholder="Choose a title" value="<?=$news['title'] ?>" />
-    		<p class="descr formleft">Author</p><input class="formright forminput" type="text" name="author" placeholder="Author name" value="<?=$news['author'] ?>" />
-    		<p class="descr formleft">Text</p><textarea class="formright forminput largetext" type="text" name="text" placeholder="Write your text"><?= $news['text'] ?></textarea>
+    		<p class="descr formleft">Text</p><textarea class="formright forminput largetext" type="text" name="text" placeholder="Write your text"><?=$news['text'] ?></textarea>
     		<input type="hidden" name="url" value="<?=$_POST['url']?>" />
+    		<input type="hidden" name="author" value="<?=$news['author']?>" />
     		<?php include 'i/fileLoader/fileLoader.php?newsId='.$news['id'] ?> <!-- TODO: fix fileload, implement properly-->
     		<button type="button" class="btn btnA formleft" onclick="history.back()"><i class="far fa-window-close"></i>&nbsp;Cancel</button>
     		<button type="submit" class="btn btnB formright" name="formaction"><i class="fas fa-edit"></i>&nbsp;Submit</button></div>
