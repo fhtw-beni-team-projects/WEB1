@@ -108,8 +108,12 @@ class user
         $stmt->close();
 
         if ($user && password_verify($pwd, $user['pwd_hash'])) {
-            $_SESSION['userid'] = $user['id'];
-            $statusMessage = "Login successful";
+            if ($user['perm_lvl'] < 0) {
+                $statusMessage = "Account deactivated";
+            } else {
+                $_SESSION['userid'] = $user['id'];
+                $statusMessage = "Login successful";
+            }
         } else {
             $statusMessage = "Username and password don't match<br>";
         }
