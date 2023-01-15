@@ -21,10 +21,10 @@ class news
 			<p class="info">Writen by <?=$news['author']?> on <?=$news['timestamp']?></p>
         	<h2 class="title"><?=$news['title']?></h2>
         	<?php
-        		if (file_exists("img/".$news['id']."_thumb.jpg")) {
+        		if (file_exists("./img/".$news['id']."_news.jpg")) {
         			$image = true
         	?>
-        			<img src="<?=glob("img/".$news['id']."_thumb.jpg")?>"/>
+        			<img src="./img/<?=$news['id']?>_news.jpg"/>
         	<?php
         		}
         		if (isset($image)) {
