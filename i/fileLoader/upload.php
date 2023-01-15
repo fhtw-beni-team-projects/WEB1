@@ -42,7 +42,7 @@ if ($uploadOk == 0) {
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-    $imgFolder = "../img/"+ $news['id'] + "_news.jpg";
+    $imgFolder = "../img/"+ $_POST["newsId"] + "_news.jpg";
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $imgFolder);
 
   } else {

@@ -71,7 +71,7 @@ class news
     		<p class="descr formleft">Author</p><input class="formright forminput" type="text" name="author" placeholder="Author name" value="<?=$news['author'] ?>" />
     		<p class="descr formleft">Text</p><textarea class="formright forminput largetext" type="text" name="text" placeholder="Write your text"><?= $news['text'] ?></textarea>
     		<input type="hidden" name="url" value="<?=$_POST['url']?>" />
-    		<?php include 'i/fileLoader/fileLoader.php'?> <!-- TODO: fix fileload, implement properly-->
+    		<?php include 'i/fileLoader/fileLoader.php?newsId='.$news['id'] ?> <!-- TODO: fix fileload, implement properly-->
     		<button type="button" class="btn btnA formleft" onclick="history.back()"><i class="far fa-window-close"></i>&nbsp;Cancel</button>
     		<button type="submit" class="btn btnB formright" name="formaction"><i class="fas fa-edit"></i>&nbsp;Submit</button></div>
     		<?php
@@ -164,6 +164,7 @@ class news
         $author = $_POST['author'];
         $title = $_POST['title'];
         $text = $_POST['text'];
+		$id = $_POST['id'];
 
         if (!isset($profile_id)) {
             $error = true;
