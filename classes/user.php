@@ -285,4 +285,64 @@ class user
             echo 0;
         }
     }
-};
+
+    static public function update_pwd($id) {
+        if ($id != $_SESSION['userid']) {
+            echo 0;
+            return;
+        }
+
+        $error = false;
+
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT pwd_hash FROM users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+
+        $pwd = $_POST['pwd'];
+        $url = $_POST['url']; # source url, to send user back to previous page
+
+        $stmt->execute();
+        $pwd_hash = $stmt->get_result()->fetch_field_direct(0);
+
+
+        if ($user && password_verify($pwd, $pwd_hash)) {
+            if ($user['perm_lvl'] < 0) {
+                $statusMessage = "Account deactivated";
+                $error = true;
+            } else {
+                $statusMessage = "Change successful";
+                $error = true;
+            }
+        } else {
+            $statusMessage = "Password don't match<br>";
+            $error = true;
+        }
+
+        if (!$error) {
+            $sql = "UPDATE users SET pwd_hash = ? WHERE id = ?";
+
+            $pwd_hash = password_hash($_POST['new_pwd'], PASSWORD_BCRYPT);
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("si", $pwd_hash, $_POST['user_id']); 
+            $success = $stmt->execute();
+
+            if ($success) {
+                echo '<p class="feedback">'.$statusMessage.'</p>';
+                header("Location: $url");
+            } else {
+                echo 0;
+            }
+        } else {
+            echo '<p class="feedback error">'.$statusMessage.'</p>';
+        }
+
+
+        $stmt->close();
+        $conn->close();
+    }
+}

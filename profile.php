@@ -11,6 +11,8 @@
         <?php
             if(isset($_GET['submit'])) {
                 user::update_user($_POST['user_id']);
+            } elseif (isset($_GET['change_pwd'])) {
+                user::update_pwd($_POST['user_id']);
             }
 
             elseif(isset($_GET['userid'])) {
@@ -31,18 +33,21 @@
                                 <p class="descr formleft">Lastname</p><input class="formright forminput" type="text" name="lname" placeholder="Choose a lastname" value="<?=$user->user['lname']?>" />
                                 <input type="hidden" value="<?=$user->id?>" name="user_id"/>
                                 <input type="hidden" name="url" value="<?=$url?>" />
-                                <button type="submit" class="btn formright" name="formaction"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Save</button>
+                                <button type="submit" class="btn formright" name="formaction"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Save&nbsp;changes</button>
 
                             </div>
                         </form>
 
-                        <div class="post main">
+                        <form class="post main form formmax" method="post" action="?change_pwd">
                             <div class="formcontent grid">
                                 <label class="descr formleft" for="pwd">Altes&nbsp;Passwort</label><input class="popup_input formright forminput" type="password" name="pwd" placeholder="Gib dein altes Passwort ein" />
                                 <label class="descr formleft" for="new_pwd">Neues&nbsp;Passwort</label><input class="popup_input formright forminput" type="password" name="new_pwd" placeholder="Gib ein neues Passwort ein" />
                                 <label class="descr formleft" for="new_pwd2">Wiederhole&nbsp;Passwort</label><input class="popup_input formright forminput" type="password" name="new_pwd2" placeholder="Wiederhole dein neues Passwort" />
+                                <input type="hidden" value="<?=$user->id?>" name="user_id"/>
+                                <input type="hidden" name="url" value="<?=$url?>" />
+                                <button type="submit" class="btn formright" name="formaction"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Update&nbsp;password</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <?php
@@ -55,6 +60,3 @@
         ?>
     </body>
 </html>
-<?php 
-    $conn->close();
-?>
