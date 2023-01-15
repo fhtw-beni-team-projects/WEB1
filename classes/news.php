@@ -35,7 +35,7 @@ class news
         		if ($full || strlen($news['text']) < $limit + 10) {
 					echo '<p onclick="noClick()">'.$news['text'].'</p>';
         		} else {
-        			echo '<p onclick="noClick()">'.substr($news['text'], 0, $limit).'... <a>Read More</a></p>';
+        			echo '<p onclick="noClick()">'.substr($news['text'], 0, $limit).'... <a onclick="open_article('.$news['id'].')">Read More</a></p>';
         		}
         	?>
 

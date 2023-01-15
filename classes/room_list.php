@@ -39,16 +39,26 @@ class room_list extends room
 
 		$sql = "";
 		if (isset($this->filter['start']) && isset($this->filter['end'])) {
-			foreach (room::available($this->filter['start']) && $this->filter['end'] as $id) {
-				if (!empty($sql)) {
-					$sql .= ", ";
+			if (!empty($this->filter['start']) && !empty($this->filter['end'])) {
+				$booked = room::available($this->filter['start'], $this->filter['end']);
+				if ($booked->num_rows > 0) {
+					foreach ($booked as $row) {
+						if (!empty($sql)) {
+							$sql .= ", ";
+						}
+						$sql .= $row['room_id'];
+					}
+					$sql = "id NOT IN (" . $sql . ")";
 				}
-				$sql .= $id;
 			}
-			$sql = "id in (" . $sql . ")";
+
+			unset($this->filter['start'], $this->filter['end']);
 		}
 
 		foreach ($this->filter as $attribute => $value) {
+			if (empty($value)) {
+				continue;
+			}
 			if(str_starts_with($attribute, "max_")) {
 				$comp = explode("_", $attribute, 2);
 				$comp[0] = " <= ";
@@ -69,7 +79,9 @@ class room_list extends room
 			$sql .= $comp_str;
 		}
 
-		$sql = " WHERE " . $sql;
+		if (!empty($sql)) {
+			$sql = " WHERE " . $sql;
+		}
 
 		return $sql;
 	}

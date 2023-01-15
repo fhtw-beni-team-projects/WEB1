@@ -97,6 +97,9 @@ function reload() {
 }
 
 function change_order(id, change) {
+  if (called) return false;
+  called = true;
+
   $.post("/order.php", {
     change: change,
     id: id,
@@ -105,4 +108,22 @@ function change_order(id, change) {
       // TODO: change html
     };
   });
+
+  reload();
+}
+
+function change_user(id, change) {
+  if (called) return false;
+  called = true;
+
+  $.post("/user.php", {
+    change: change,
+    id: id,
+  }, function(success) {
+    if (success) {
+      // TODO: change html
+    };
+  });
+
+  reload();
 }

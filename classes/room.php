@@ -34,7 +34,7 @@ class room
             <img class="gridleft" src="<?=glob("img/".$room['id']."_thumb.jpg")?>"/>
             <div class="gridright">
                 <h2 class="title">Room: <?=$room['name']?></h2>
-                <a onclick="noClick()"><?=$room['descr']?></a>
+                <p><?=$room['descr']?></p>
                 <p>Price: € <?=$room['price']?>/night</p>
                 <p>Beds:<?=str_repeat(' <i class="fas fa-user"></i>', $room['beds'])?></p>
             </div>
@@ -51,14 +51,14 @@ class room
         }
 
         $sql = "SELECT DISTINCT room_id FROM orders WHERE start < ? AND end > ?";
-        if ($id) {
+        if ($room_id) {
             $sql .= " AND room_id = ?";
         }
 
         $stmt = $conn->prepare($sql);
         $types = "ss";
         $parameters = array($end, $start);
-        if ($id) {
+        if ($room_id) {
             $types .= "i";
             $parameters[] = $room_id;
         }
@@ -75,8 +75,7 @@ class room
         } elseif ($room_id) {
             return true;
         } else {
-            # TODO: list of id's
-            return $available;
+            return $result;
         }
     }
 }

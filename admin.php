@@ -7,6 +7,8 @@
   </head>
   <body>
     <?php include 'i/navbar.php'?>
+    <?php include 'user.php'?>
+    <?php include 'order.php'?>
     
     <div class="grid maingrid" id="mainpage">
       <div class="feed" id="infoposts">
@@ -14,6 +16,9 @@
           $user = new user();
           if (user::is_admin($user->id)) {
             if(isset($_GET['users'])) {
+              echo '<div class="post main">';
+              user_list::list_users();
+              echo '</div>';
             } elseif(isset($_GET['orders'])) {
               echo '<div class="post main">';
               order_list::list_orders();

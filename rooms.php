@@ -128,7 +128,24 @@
             # filter is an associativ array with all table columns as possible filters
             # TODO: get request for filter
             
-                $filter['max_beds'] = 4;
+                $filter = array();
+                foreach ($_GET as $key => $value) {
+                    $filter[$key] = $value;
+                }
+
+                ?>
+                    <form class="post main">
+                        <label for="min_beds">Beds: </label><input type="number" name="min_beds" value="<?=$filter['min_beds']?>" /> to <input type="number" name="max_beds" value="<?=$filter['max_beds']?>" /><br>
+                        <label for="min_price">Price: </label><input type="number" name="min_price" value="<?=$filter['min_price']?>" step=0.01 /> to <input type="number" name="max_price" value="<?=$filter['max_price']?>" step=0.01 /><br>
+                        <label for="available">Available: </label><input type="date" name="start" value="<?=$filter['start']?>" /> to <input type="date" name="end" value="<?=$filter['end']?>" /><br>
+                        <button type="submit" class="btn"><i class="fas fa-filter"></i>&nbsp;Set&nbsp;filter</button>
+                    </form>
+                <?php
+
+                $filter = array();
+                foreach ($_GET as $key => $value) {
+                    $filter[$key] = $value;
+                }
 
                 $rooms = new room_list($filter);
     

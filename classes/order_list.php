@@ -62,7 +62,7 @@ class order_list extends order
     				?>
     			</td>
     			<td><button type="button" class="btn" onclick="change_order(<?=$order['id']?>, 1)">Confirm</button></td>
-            	<td><button type="button" class="btn" onclick="change_order(<?=$order['id']?>, 1)">Cancel</button></td>
+            	<td><button type="button" class="btn" onclick="change_order(<?=$order['id']?>, -1)">Cancel</button></td>
     		</tr>
     		<?php
     	}

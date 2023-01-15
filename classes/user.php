@@ -222,4 +222,32 @@ class user
 
         return $result['perm_lvl'];
     }
+
+    static public function change_status($id, $status) {
+        if (!user::is_admin($_SESSION['userid'])) {
+            echo 0;
+            return;
+        }
+
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            echo 0;
+            die("Connection failed: ".$conn->connect_error);
+        }
+
+        $sql = "UPDATE users SET perm_lvl = ? WHERE id = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ii", $status, $id); 
+        $success = $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        if ($success) {
+            echo 1;
+        } else {
+            echo 0;
+        }
+    }
 };
