@@ -20,7 +20,7 @@
             <button type="submit" class="btn" name="orders">User management</button>
           </div>
         </form>
-        <?
+        <?php
           } else {
             echo '<p class="feedback warning">You don\'t have permission to access this site!</p>';
           }
