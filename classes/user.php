@@ -100,6 +100,9 @@ class user
         $email = $_POST['email'];
         $pwd = $_POST['pwd'];
         $url = $_POST['url']; # source url, redundant for asynchronous login
+        $gender = $_POST['gender'];
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
 
         $stmt->execute();
 
@@ -134,8 +137,8 @@ class user
         $email = $_POST['email'];
         $pwd = $_POST['pwd'];
         $gender = $_POST['gender'];
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
         $url = $_POST['url'];
     
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -172,6 +175,30 @@ class user
                 $statusMessage = "E-mail already in use<br>";
                 $error = true;
             }
+        }
+
+        if (!$error) {
+            $sql = "SELECT * FROM users WHERE gender = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $gender);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        }
+
+        if (!$error) {
+            $sql = "SELECT * FROM users WHERE fname = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $fname);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        }
+
+        if (!$error) {
+            $sql = "SELECT * FROM users WHERE lname = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $result = $stmt->get_result();
         }
     
         if (!$error) {
