@@ -10,10 +10,12 @@
     
         <?php
             if(isset($_GET['submit'])) {
-                user::update_user($_POST('id'));
+                user::update_user($_POST['user_id']);
             }
 
             elseif(isset($_GET['userid'])) {
+
+                $url = $_SERVER['REQUEST_URI'];
                 
                 $user = new user($_GET['userid']);
                 $set = 0;
@@ -22,11 +24,13 @@
                     <div class="feed">
                         <form class="post main form formmax" method="post" action="?submit">
                             <div class="formcontent formcontentmax">
-                                <p class="descr formleft">Username</p><input class="formright forminput" type="text" name="username" placeholder="Choose a username" value="<?=$user->user['username']?>" />
-                                <p class="descr formleft">E-mail</p><input class="formright forminput" type="text" name="email" placeholder="Choose a email" value="<?=$user->user['email']?>" />
+                                <p class="descr formleft">Username</p><p class="descr formright"><?=$user->user['username']?></p>
+                                <p class="descr formleft">E-mail</p><p class="descr formright"><?=$user->user['email']?></p>
+                                <p class="descr formleft">Title</p><input class="formright forminput" type="text" name="title" placeholder="Choose a firstname" value="<?=$user->user['title']?>" />
                                 <p class="descr formleft">Firstname</p><input class="formright forminput" type="text" name="fname" placeholder="Choose a firstname" value="<?=$user->user['fname']?>" />
                                 <p class="descr formleft">Lastname</p><input class="formright forminput" type="text" name="lname" placeholder="Choose a lastname" value="<?=$user->user['lname']?>" />
-                                <input type="hidden" value="<?=$user->id?>" name="id"/>
+                                <input type="hidden" value="<?=$user->id?>" name="user_id"/>
+                                <input type="hidden" name="url" value="<?=$url?>" />
                                 <button type="submit" class="btn formright" name="formaction"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Save</button>
 
                             </div>

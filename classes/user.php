@@ -256,4 +256,33 @@ class user
             echo 0;
         }
     }
+
+    static public function update_user($id) {
+        if (!(user::is_admin($_SESSION['userid']) || $_POST['user_id'] = $_SESSION['userid'])) {
+            echo 0;
+            return;
+        }
+
+        $conn = new mysqli_init();
+        if ($conn->connect_error) {
+            echo 0;
+            die("Connection failed: ".$conn->connect_error);
+        }
+
+        $sql = "UPDATE users SET title = ?, fname = ?, lname = ? WHERE id = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssi", $_POST['title'], $_POST['fname'], $_POST['lname'], $_POST['user_id']); 
+        $success = $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        if ($success) {
+            $url = $_POST['url'];
+            header("Location: $url");
+        } else {
+            echo 0;
+        }
+    }
 };

@@ -134,10 +134,30 @@ function check_password(form) {
 
   if (pwd1 == '') {
     alert ("Please enter Password");
+    return false;
   } else if (pwd2 == '') {
     alert ("Please enter confirm password");
+    return false;
   } else if (pwd1 != pwd2) {
     alert ("\nPassword did not match: Please try again...")
+    return false;
+  } else { 
+    return true;
+  }
+}
+
+function check_dates(form) {
+  start = form.start.value;
+  end = form.end.value;
+
+  if (start == '') {
+    alert ("Please select an arrival date");
+    return false;
+  } else if (end == '') {
+    alert ("Please selct a departure date");
+    return false;
+  } else if (start >= end) {
+    alert ("\nDeparture must be after arrival")
     return false;
   } else { 
     return true;

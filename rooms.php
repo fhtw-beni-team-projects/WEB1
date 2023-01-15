@@ -66,7 +66,7 @@
                         $order->place_order();
 
                     } elseif (isset($_GET['order'])) {
-                        $diff = date_diff(date_create($_POST['start']),date_create($_POST['end']));
+                        $diff = date_diff(date_create($_POST['start']), date_create($_POST['end']));
                         $nights = $diff->format("%a");
                         $base = $room->room['price'] * $nights;
                         $total = $base;
@@ -102,7 +102,7 @@
                 <?php
                     } else {
                 ?>
-                <form method="post" action="?room=1&order" class="post main" id="order">
+                <form method="post" action="?room=1&order" class="post main" id="order" onSubmit="return check_dates(this)">
                     <div class="equal grid">
                         <input type="hidden" name="room_id" value="<?=$room->id?>">
                         <label class="descr formleft" for="start">Start date: </label><input class="input formright forminput" type="date" name="start" />
