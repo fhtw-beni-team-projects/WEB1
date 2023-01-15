@@ -42,7 +42,7 @@ class order
         $pets = $_POST['pets'];
 
         $user = new user();
-        $profile_id = $user->user['profile_id'];
+        $user_id = $user->id;
 
 
         if ((!$start || !$end) && !$error) {
@@ -57,15 +57,15 @@ class order
             $warn = true;
         }
 
-        if (!$profile_id && !$error) {
-            $statusMessage  = "Couldn't find a profile<br>";
+        if (!$user_id && !$error) {
+            $statusMessage  = "Couldn't find a user<br>";
             $error = true;
         }
 
         if (!$error) {
-            $sql = "INSERT INTO orders (room_id, profile_id, start, end, breakfast, parking, pets) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO orders (room_id, user_id, start, end, breakfast, parking, pets) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iissiii", $room_id, $profile_id, $start, $end, $breakfast, $parking, $pets);
+            $stmt->bind_param("iissiii", $room_id, $user_id, $start, $end, $breakfast, $parking, $pets);
     
             if ($stmt->execute()) {
                 # TODO: order confirmation

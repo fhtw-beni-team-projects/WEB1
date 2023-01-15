@@ -16,7 +16,7 @@
         <?php
                 $order = new order($_GET['order']);
                 $user = new user();
-                if ($user->user['profile_id'] != $order->order['profile_id'] && !user::is_admin($user->id)) {
+                if ($user->user['id'] != $order->order['user_id'] && !user::is_admin($user->id)) {
                     echo '<p class="feedback error">Unfortunately you don\'t have access to this order</p>';
                 } else {
                     $room = new room($order->order['room_id']);

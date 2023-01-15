@@ -100,9 +100,6 @@ class user
         $email = $_POST['email'];
         $pwd = $_POST['pwd'];
         $url = $_POST['url']; # source url, redundant for asynchronous login
-        $gender = $_POST['gender'];
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
 
         $stmt->execute();
 
@@ -176,30 +173,6 @@ class user
                 $error = true;
             }
         }
-
-        if (!$error) {
-            $sql = "SELECT * FROM users WHERE gender = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $gender);
-            $stmt->execute();
-            $result = $stmt->get_result();
-        }
-
-        if (!$error) {
-            $sql = "SELECT * FROM users WHERE fname = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $fname);
-            $stmt->execute();
-            $result = $stmt->get_result();
-        }
-
-        if (!$error) {
-            $sql = "SELECT * FROM users WHERE lname = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $name);
-            $stmt->execute();
-            $result = $stmt->get_result();
-        }
     
         if (!$error) {
             $pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
@@ -207,9 +180,9 @@ class user
     
             // TODO: seperate table for contact details
             // users table just for login details
-            $sql = "INSERT INTO users (username, email, pwd_hash) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO users (username, email, pwd_hash, title, fname, lname) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $username, $email, $pwd_hash);
+            $stmt->bind_param("ssssss", $username, $email, $pwd_hash, $gender, $fname, $lname);
     
             if ($stmt->execute()) {
                 $sql = "SELECT * FROM users WHERE email = ?";

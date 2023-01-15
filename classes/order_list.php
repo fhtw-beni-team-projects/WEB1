@@ -32,7 +32,7 @@ class order_list extends order
   				</tr>
 		<?php
     	foreach ($order_list as $order) {
-    		$profile = new profile($order['profile_id']);
+    		$user = new user($order['user_id']);
     		$room = new room($order['room_id']);
     		?>
     		<tr id="order_<?=$order['id']?>">
@@ -43,8 +43,8 @@ class order_list extends order
     			<td><?=$order['breakfast']?></td>
     			<td><?=$order['parking']?></td>
     			<td><?=$order['pets']?></td>
-    			<td><?=$profile->profile['fname']?></td>
-    			<td><?=$profile->profile['lname']?></td>
+    			<td><?=$user->user['fname']?></td>
+    			<td><?=$user->user['lname']?></td>
     			<td><?=$order['timestamp']?></td>
     			<td>
     				<?php
