@@ -31,7 +31,7 @@ class room
 
         ?>
         <div class="post main grid imagegrid" id="room<?=$room['id']?>" onclick="open_room(<?=$room['id']?>)">
-            <img class="gridleft" src="<?=glob("img/".$room['id']."_thumb.jpg")?>"/>
+            <img class="gridleft" src="img/<?=$room['id']?>_thumb.jpg"/>
             <div class="gridright">
                 <h2 class="title">Room: <?=$room['name']?></h2>
                 <p><?=$room['descr']?></p>
