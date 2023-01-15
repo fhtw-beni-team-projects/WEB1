@@ -127,3 +127,19 @@ function change_user(id, change) {
 
   reload();
 }
+
+function check_password(form) {
+  pwd1 = form.pwd.value;
+  pwd2 = form.pwd2.value;
+
+  if (pwd1 == '') {
+    alert ("Please enter Password");
+  } else if (pwd2 == '') {
+    alert ("Please enter confirm password");
+  } else if (pwd1 != pwd2) {
+    alert ("\nPassword did not match: Please try again...")
+    return false;
+  } else { 
+    return true;
+  }
+}

@@ -99,7 +99,7 @@ class user
 
         $email = $_POST['email'];
         $pwd = $_POST['pwd'];
-        $url = $_POST['url']; # source url, redundant for asynchronous login
+        $url = $_POST['url']; # source url, to send user back to previous page
 
         $stmt->execute();
 
@@ -133,6 +133,7 @@ class user
         $username = $_POST['username'];
         $email = $_POST['email'];
         $pwd = $_POST['pwd'];
+        $pwd2 = $_POST['pwd2'];
         $gender = $_POST['gender'];
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
@@ -144,8 +145,13 @@ class user
         }
     
         // TODO: pwd requirements
-        if (!strlen($pwd)) {
+        if (!strlen($pwd) && !$error) {
             $statusMessage = "Please enter a password<br>";
+            $error = true;
+        }
+
+        if ($pwd != $pwd2 && !$error) {
+            $statusMessage = "Your passwords don't match<br>";
             $error = true;
         }
     

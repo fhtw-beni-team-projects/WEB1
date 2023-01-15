@@ -54,7 +54,7 @@ $url = $_SERVER['REQUEST_URI'];
     </div>
 </form>
 
-<form method="post" action="?signup" class="popup" id="signup">
+<form method="post" action="?signup" class="popup" id="signup" onSubmit="return check_password(this)">
     <div class="formcontent grid">
 
         <label class="descr formleft" for="gender">Anrede</label>
