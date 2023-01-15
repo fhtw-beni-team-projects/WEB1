@@ -76,7 +76,8 @@
 ?>
 
     <li class="navPoint right">
-    	<form method="post" aria-label="Your account" action="profile.php?userid='<?=intval($user->id)?>'">
+    	<form method="get" aria-label="Your account" action="profile.php">
+    		<input type="hidden" name="userid" value="<?=$id?>" />
     		<button class="navLink" type="submit">
     			<i class="navIcon fas fa-user"></i>
     			<p class="navText">&nbsp;<?=$user->name?></p>

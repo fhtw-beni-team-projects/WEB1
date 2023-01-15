@@ -128,7 +128,7 @@
             # filter is an associativ array with all table columns as possible filters
             # TODO: get request for filter
             
-                $filter = array();
+                $filter = array("min_beds" => "", "max_beds" => "", "min_price" => "", "max_price" => "", "start" => "", "end" => "");
                 foreach ($_GET as $key => $value) {
                     $filter[$key] = $value;
                 }
