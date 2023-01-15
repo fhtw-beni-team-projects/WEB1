@@ -1,7 +1,7 @@
 <?php
 class profile
 {
-	private $profile;
+	public $profile;
 
 	public function __construct($id) {
 		$conn = new mysqli_init();
@@ -22,6 +22,10 @@ class profile
 		$this->profile = $profile;
 	}
 
-	public function display_profile($profile = $this->profile) {
+	public function display_profile($profile = false) {
+		if (!$profile) {
+			$profile = $this->profile;
+		}
 		# TODO: html
 	}
+}

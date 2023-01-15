@@ -95,3 +95,14 @@ function reload() {
   script.src = '../scripts/common.js';
   head.appendChild(script);
 }
+
+function change_order(id, change) {
+  $.post("/order.php", {
+    change: change,
+    id: id,
+  }, function(success) {
+    if (success) {
+      // TODO: change html
+    };
+  });
+}
