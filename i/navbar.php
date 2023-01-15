@@ -65,6 +65,12 @@
  						<p class="navText">&nbsp;New Article</p>
  					</button>
  				</li>
+ 				<li class="navPoint">
+ 					<a class="navLink" href="/admin.php"> <!-- TODO: on hover instead of additional "menu" site-->
+ 						<i class="fas fa-wrench"></i>
+ 						<p class="navText">&nbsp;Admin-tools</p>
+ 					</a>
+ 				</li>
 			<?php
 		}
 ?>
