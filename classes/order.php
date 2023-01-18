@@ -78,7 +78,7 @@ class order
         $conn->close();
 
         if (isset($statusMessage)) {
-            if ($warn) {
+            if (isset($warn)) {
                 echo '<p class="feedback warning">'.$statusMessage.'</p>';
             } elseif ($error) {
                 echo '<p class="feedback error">'.$statusMessage.'</p>';

@@ -75,15 +75,30 @@
                     <div class="equal grid">
                         <p class="descr formleft"><?=$_POST['start']?> to <?=$_POST['end']?> (<?=$nights?> nights): </p><p class="descr formright">€ <?=$base?></p>
                             <?php
-                            if ($_POST['breakfast']) {
+                            if (isset($_POST['breakfast'])) {
+                                $breakfast = 1;
+                            } else {
+                                $breakfast = 0;
+                            }
+                            if (isset($_POST['parking'])) {
+                                $parking = 1;
+                            } else {
+                                $parking = 0;
+                            }
+                            if (isset($_POST['pets'])) {
+                                $pets = 1;
+                            } else {
+                                $pets = 0;
+                            }
+                            if ($breakfast) {
                                 $total += $nights * 10 * $room->room['beds'];
                                 echo '<p class="descr formleft">Breakfast:</p><p class="descr formright">€ '. $nights * 10 * $room->room['beds'] .'</p>';
                             }
-                            if ($_POST['parking']) {
+                            if ($parking) {
                                 $total += $nights * 5;
                                 echo '<p class="descr formleft">Parking:</p><p class="descr formright">€ '. $nights * 5 .'</p>';
                             }
-                            if ($_POST['pets']) {
+                            if ($pets) {
                                 $total += 20;
                                 echo '<p class="descr formleft">Pet cleaning fee:</p><p class="descr formright">€ 20</p>';
                             }
