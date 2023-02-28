@@ -49,7 +49,7 @@ if(array_key_exists('homeButton', $_POST)) {
   DirHome();
 }
 function DirHome(){
-  header('Location: /');
+  header('Location: /WEB1/');
 }
 ?>
 <form method="post">

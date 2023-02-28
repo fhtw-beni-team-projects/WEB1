@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/styles/base.css">
+<link rel="stylesheet" type="text/css" href="./styles/base.css">
 
 <!-- TODO: can we use external icons? -->
 
@@ -6,7 +6,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script defer src="/scripts/common.js"></script>
+<script defer src="./scripts/common.js"></script>
 
 <!--
 
