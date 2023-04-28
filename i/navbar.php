@@ -2,25 +2,25 @@
 
 <ul class="navBox" id="navbar" aria-label="Navigation bar">
 	<li class="navPoint">
-		<a class="navLink" href="/index.php">
+		<a class="navLink" href="./index.php">
 			<i class="fas fa-home"></i>
 			<p class="navText">&nbsp;Home</p>
 		</a>
 	</li>
  	<li class="navPoint">
- 		<a class="navLink" href="/about.php">
+ 		<a class="navLink" href="./about.php">
  			<i class="fas fa-info"></i>
  			<p class="navText">&nbsp;About</p>
  		</a>
  	</li>
  	<li class="navPoint">
- 		<a class="navLink" href="/faq.php">
+ 		<a class="navLink" href="./faq.php">
  			<i class="fas fa-question"></i>
  			<p class="navText">&nbsp;FAQ</p>
  		</a>
  	</li>
  	<li class="navPoint">
- 		<a class="navLink" href="/rooms.php">
+ 		<a class="navLink" href="./rooms.php">
  			<i class="fas fa-bed"></i>
  			<p class="navText">&nbsp;Rooms</p>
  		</a>
