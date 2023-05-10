@@ -1,3 +1,5 @@
+https://fhtw.nanopenguin.at/WEB1/
+
 ## DB access file
 
 To access the database, `classes/mysqli_init.php` reads the file `db_settings.ini` with the following structure:
